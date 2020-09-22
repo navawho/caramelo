@@ -6,12 +6,14 @@ import { FormHandles } from '@unform/core';
 import Input from '../../components/Input';
 
 import { Container, Content, Card, Inputs } from './styles';
+import Sidebar from '../../components/Sidebar';
 
 const SignIn: React.FC = () => {
 	const formRef = useRef<FormHandles>(null);
 
 	return (
 		<Container>
+			<Sidebar />
 			<Content>
 				<Card>
 					<h3>Entrar</h3>
