@@ -33,6 +33,14 @@ const SignIn: React.FC = () => {
 								placeholder="Sua senha"
 								icon={FiMail}
 							/>
+							<label htmlFor="password-confirm">Confirmacao de senha</label>
+							<Input
+								type="password-confirm"
+								id="password-confirm"
+								name="password-confirm"
+								placeholder="Sua senha"
+								icon={FiMail}
+							/>
 							<button type="submit">Entrar</button>
 						</Inputs>
 					</Form>
