@@ -36,10 +36,6 @@ export const Inputs = styled.div`
 	display: flex;
 	flex-direction: column;
 
-	input {
-		color: red;
-	}
-
 	label:last-of-type {
 		margin-top: 18px;
 	}
