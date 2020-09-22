@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Content = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -34,7 +34,16 @@ export const FilterOptions = styled.div`
 	}
 `;
 
-export const Pets = styled.div``;
+export const Pets = styled.div`
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	margin-top: 36px;
+
+	> div {
+		margin: 24px;
+	}
+`;
 
 export const SearchBar = styled.div`
 	display: flex;

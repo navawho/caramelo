@@ -1,5 +1,5 @@
 import { shade } from 'polished';
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
 	* {
@@ -36,4 +36,10 @@ export default createGlobalStyle`
 			background-color: ${shade(0.2, '#c94217')}
 		}
 	}
+`;
+
+export const Container = styled.div`
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 0 40px;
 `;
