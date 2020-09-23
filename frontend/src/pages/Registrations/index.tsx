@@ -12,7 +12,7 @@ import {
 	Pets,
 } from './styles';
 
-const SignUp: React.FC = () => {
+const Registration: React.FC = () => {
 	return (
 		<Container>
 			<Content>
@@ -72,4 +72,4 @@ const SignUp: React.FC = () => {
 	);
 };
 
-export default SignUp;
+export default Registration;
