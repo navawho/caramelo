@@ -17,7 +17,7 @@ const Sidebar: React.FC = () => {
 						</Link>
 					</NavItem>
 					<NavItem>
-						<Link to="">
+						<Link to="/adoptions">
 							<FiClipboard size={30} />
 							<p>Meus Cadastros</p>
 						</Link>
