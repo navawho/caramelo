@@ -7,6 +7,8 @@ export const Container = styled.div`
 	align-items: stretch;
 `;
 
+export const SidebarContainer = styled.div``;
+
 export const Content = styled.div`
 	display: flex;
 	justify-content: center;

@@ -1,9 +1,18 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+	display: flex;
+`;
+
+export const SidebarContainer = styled.div`
+	display: flex;
+`;
+
 export const Content = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+	margin-left: 230px;
 	margin-top: 24px;
 
 	> button {
@@ -21,6 +30,7 @@ export const Content = styled.div`
 `;
 
 export const Pets = styled.div`
+	margin: 10px 30px;
 	display: flex;
 	flex-direction: column;
 `;
