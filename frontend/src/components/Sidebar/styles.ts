@@ -8,6 +8,7 @@ export const Container = styled.div`
 	width: 230px;
 	height: 100vh;
 	background-color: #ffffff;
+	box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
 `;
 
 export const NavContainer = styled.nav`

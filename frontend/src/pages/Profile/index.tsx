@@ -3,16 +3,20 @@ import { FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 
-import { Container } from '../../styles/global';
 import Input from '../../components/Input';
 
-import { Content } from './styles';
+import { Container, Content, SidebarContainer } from './styles';
+import Sidebar from '../../components/Sidebar';
 
 const Profile: React.FC = () => {
 	const formRef = useRef<FormHandles>(null);
 
 	return (
 		<Container>
+			<SidebarContainer>
+				<Sidebar />
+			</SidebarContainer>
+
 			<Content>
 				<Form ref={formRef} onSubmit={() => {}}>
 					<legend>Meu perfil</legend>

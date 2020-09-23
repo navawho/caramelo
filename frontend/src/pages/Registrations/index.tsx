@@ -1,20 +1,25 @@
 import React from 'react';
 import CardPet from '../../components/CardPetEdit';
-
-import { Container } from '../../styles/global';
+import Sidebar from '../../components/Sidebar';
 
 import {
+	Container,
 	Content,
 	PetWrapper,
 	Solicitations,
 	Solicitation,
 	ButtonWrapper,
 	Pets,
+	SidebarContainer,
 } from './styles';
 
 const Registration: React.FC = () => {
 	return (
 		<Container>
+			<SidebarContainer>
+				<Sidebar />
+			</SidebarContainer>
+
 			<Content>
 				<button type="button">Cadastrar Pet</button>
 				<Pets>

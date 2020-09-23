@@ -1,5 +1,17 @@
 import styled from 'styled-components';
 
+export const SidebarContainer = styled.div``;
+
+export const OutContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+`;
+
+export const Container = styled.div`
+	display: flex;
+	margin-left: 230px;
+`;
+
 export const Content = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -41,7 +53,7 @@ export const Pets = styled.div`
 	margin-top: 36px;
 
 	> div {
-		margin: 24px;
+		margin: 54px;
 	}
 `;
 
