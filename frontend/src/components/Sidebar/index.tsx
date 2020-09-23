@@ -17,13 +17,13 @@ const Sidebar: React.FC = () => {
 						</Link>
 					</NavItem>
 					<NavItem>
-						<Link to="/adoptions">
+						<Link to="">
 							<FiClipboard size={30} />
 							<p>Meus Cadastros</p>
 						</Link>
 					</NavItem>
 					<NavItem>
-						<Link to="">
+						<Link to="/adoptions">
 							<FaPaw size={30} />
 							<p>Minhas Adoções</p>
 						</Link>
