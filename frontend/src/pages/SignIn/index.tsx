@@ -6,7 +6,6 @@ import { FormHandles } from '@unform/core';
 import Input from '../../components/Input';
 
 import { Container, Content, Card, Inputs } from './styles';
-import Sidebar from '../../components/Sidebar';
 
 import Logo from '../../assets/Logo.png';
 
@@ -15,7 +14,6 @@ const SignIn: React.FC = () => {
 
 	return (
 		<Container>
-			<Sidebar />
 			<Content>
 				<img src={Logo} alt="Caramelo"/>
 				<Card>
