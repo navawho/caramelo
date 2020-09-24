@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { FiMail, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
+import { Link } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
 
 import Input from '../../components/Input';
@@ -45,6 +46,9 @@ const SignUp: React.FC = () => {
 								icon={FiMail}
 							/>
 							<button type="submit">Cadastrar</button>
+							<Link to="/sign-in">
+								Já possui conta? Faça login
+							</Link>
 						</Inputs>
 					</Form>
 				</Card>

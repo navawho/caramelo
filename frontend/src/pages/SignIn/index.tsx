@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { FiMail, FiLock } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 
@@ -37,6 +38,9 @@ const SignIn: React.FC = () => {
 								icon={FiMail}
 							/>
 							<button type="submit">Entrar</button>
+							<Link to="/sign-up">
+								Ainda não possui conta? Cadastre-se
+							</Link>
 						</Inputs>
 					</Form>
 				</Card>

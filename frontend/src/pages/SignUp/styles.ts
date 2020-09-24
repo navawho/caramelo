@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { shade } from 'polished';
 
 export const Container = styled.div`
 	height: 100vh;
@@ -52,6 +53,19 @@ export const Inputs = styled.div`
 		font-size: 24px;
 		margin-bottom: 12px;
 		margin-top: 18px;
+	}
+
+	a {
+		color: rgba(201, 66, 23, 0.93);
+		margin-top: 24px;
+		text-decoration: underline;
+		cursor: pointer;
+		font-size: 14px;
+		align-self: center;
+
+		:hover {
+			color: ${shade(0.2, 'rgba(201, 66, 23, 0.93)')}
+		}
 	}
 
 	button {
