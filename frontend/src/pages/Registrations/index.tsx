@@ -19,7 +19,6 @@ const Registration: React.FC = () => {
 			<SidebarContainer>
 				<Sidebar />
 			</SidebarContainer>
-
 			<Content>
 				<button type="button">Cadastrar Pet</button>
 				<Pets>

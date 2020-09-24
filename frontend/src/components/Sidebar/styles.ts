@@ -20,6 +20,10 @@ export const NavContainer = styled.nav`
 	.botNav {
 		display: flex;
 		flex-direction: column;
+
+		.image {
+			align-self: center;
+		}
 	}
 `;
 
@@ -46,4 +50,11 @@ export const NavItem = styled.div`
 	:active {
 		color: #c94217;
 	}
+
+	img {
+		width: 100px;
+		height: 100px;
+	}
+
+	
 `;

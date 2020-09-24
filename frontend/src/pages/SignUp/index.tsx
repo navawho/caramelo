@@ -5,6 +5,8 @@ import { FormHandles } from '@unform/core';
 
 import Input from '../../components/Input';
 
+import Logo from '../../assets/Logo.png';
+
 import { Container, Content, Card, Inputs } from './styles';
 
 const SignUp: React.FC = () => {
@@ -13,6 +15,7 @@ const SignUp: React.FC = () => {
 	return (
 		<Container>
 			<Content>
+				<img src={Logo} alt="Caramelo"/>
 				<Card>
 					<h3>Cadastrar</h3>
 					<Form ref={formRef} onSubmit={() => {}}>

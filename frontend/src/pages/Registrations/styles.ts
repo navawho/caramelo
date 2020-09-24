@@ -46,7 +46,7 @@ export const Solicitations = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
-	margin-left: 12px;
+	margin-left: 24px;
 	max-height: 325px;
 	flex-wrap: wrap;
 `;

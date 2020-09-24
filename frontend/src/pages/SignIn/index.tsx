@@ -8,6 +8,8 @@ import Input from '../../components/Input';
 import { Container, Content, Card, Inputs } from './styles';
 import Sidebar from '../../components/Sidebar';
 
+import Logo from '../../assets/Logo.png';
+
 const SignIn: React.FC = () => {
 	const formRef = useRef<FormHandles>(null);
 
@@ -15,6 +17,7 @@ const SignIn: React.FC = () => {
 		<Container>
 			<Sidebar />
 			<Content>
+				<img src={Logo} alt="Caramelo"/>
 				<Card>
 					<h3>Entrar</h3>
 					<Form ref={formRef} onSubmit={() => {}}>

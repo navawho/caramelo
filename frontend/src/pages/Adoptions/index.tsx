@@ -9,7 +9,6 @@ const Adoptions: React.FC = () => {
 	return (
 		<Container>
 			<Sidebar />
-
 			<Content>
 				<LeftContent>
 					<h2>Adoções</h2>

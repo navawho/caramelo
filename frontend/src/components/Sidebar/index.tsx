@@ -5,11 +5,16 @@ import { FaPaw } from 'react-icons/fa';
 
 import { Container, NavContainer, NavItem } from './styles';
 
+import Logo from '../../assets/Logo.png';
+
 const Sidebar: React.FC = () => {
 	return (
 		<Container>
 			<NavContainer>
 				<div className="topNav">
+					<NavItem className="image">
+						<img src={Logo} alt="Caramelo"/>
+					</NavItem>
 					<NavItem>
 						<Link to="/">
 							<FiHome size={30} />

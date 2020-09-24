@@ -9,15 +9,23 @@ export const Container = styled.div`
 
 export const Content = styled.div`
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 
 	width: 100%;
+
+	img {
+		width: 200px;
+		height: 200px;
+		cursor: pointer;
+	}
 `;
 
 export const Card = styled.div`
 	display: flex;
 	flex-direction: column;
+	margin-bottom: 200px;
 
 	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
 	border-radius: 8px;
