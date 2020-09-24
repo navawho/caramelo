@@ -5,7 +5,7 @@ import { FaPaw } from 'react-icons/fa';
 
 import { Container, NavContainer, NavItem } from './styles';
 
-import Logo from '../../assets/Logo.png';
+import Logo from '../../assets/Logo-no-font.png';
 
 const Sidebar: React.FC = () => {
 	return (
