@@ -6,38 +6,26 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "pets")
 @Data
-public class Pet {
+@Table(name = "solicitations")
+public class Solicitation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "pet_id")
+    private Pet pet;
+
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    @Column(nullable = false, unique = true)
-    private String name;
-
-    @Column(nullable = false)
-    private String port;
-
-    @Column(nullable = false)
-    private String type;
-
-    @Column(nullable = false)
-    private String sex;
-
-    @Column(name = "birth_date", nullable = false)
-    @Convert(converter = Jsr310JpaConverters.LocalDateConverter.class)
-    private LocalDate birthDate;
+    
+    private Boolean accepted;
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
