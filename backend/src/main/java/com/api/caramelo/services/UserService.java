@@ -1,5 +1,6 @@
 package com.api.caramelo.services;
 
+import com.api.caramelo.controllers.dtos.UserDTO;
 import com.api.caramelo.models.User;
 import com.api.caramelo.repositories.UserRepository;
 import com.api.caramelo.services.interfaces.IUserService;
@@ -17,5 +18,10 @@ public class UserService implements IUserService {
     @Override
     public List<User> search() {
         return repository.findAll();
+    }
+
+    @Override
+    public User create(User user) {
+        return repository.save(user);
     }
 }

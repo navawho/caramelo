@@ -7,4 +7,6 @@ import java.util.List;
 public interface IUserService {
 
     List<User> search();
+
+    User create(User user);
 }
