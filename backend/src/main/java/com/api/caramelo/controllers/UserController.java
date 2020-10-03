@@ -1,16 +1,17 @@
 package com.api.caramelo.controllers;
 
 import com.api.caramelo.controllers.dtos.UserDTO;
-import com.api.caramelo.models.User;
+import com.api.caramelo.exceptions.ErrorsWrapperException;
 import com.api.caramelo.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import static org.springframework.http.ResponseEntity.badRequest;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -26,19 +27,14 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity store(@RequestBody UserDTO dto) {
-        if (!dto.getPassword().equals(dto.getConfirmPassword())) {
-            Map<String, String> map = new HashMap<>();
-            map.put("message", "Senhas não batem.");
-            return badRequest().body(map);
+    public ResponseEntity store(@RequestBody UserDTO userDto) {
+        try {
+            return ok(service.create(userDto));
+        } catch(ErrorsWrapperException e) {
+            Map<String, List> body = new HashMap<>();
+            body.put("errors", e.getErrors());
+
+            return new ResponseEntity<>(body, BAD_REQUEST);
         }
-
-        User user = User.builder()
-                    .username(dto.getUsername())
-                    .password(dto.getPassword())
-                    .email(dto.getEmail())
-                    .phone(dto.getPhone()).build();
-
-        return ok(service.create(user));
     }
 }

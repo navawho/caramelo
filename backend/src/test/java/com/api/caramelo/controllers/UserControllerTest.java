@@ -39,13 +39,14 @@ public class UserControllerTest {
     @Test
     public void shouldCreateUserWithSucess() throws Exception {
         LocalDateTime currentDate = LocalDateTime.of(LocalDate.now(), LocalTime.now());
+        UserDTO userDto = UserDTO.builder().username("user1").password("123456").confirmPassword("123456").email("user@email.com").phone("8898767654").build();
         User user = User.builder().id(1l).username("user1").password("123456").email("user@email.com").phone("8898767654").createdAt(currentDate).build();
 
-        Mockito.when(service.create(Mockito.any(User.class))).thenReturn(user);
+        Mockito.when(service.create(Mockito.any(UserDTO.class))).thenReturn(user);
 
         mockMvc.perform(post("/users")
                 .contentType("application/json")
-                .content(objectMapper.writeValueAsString(user)))
+                .content(objectMapper.writeValueAsString(userDto)))
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .json("{'id':1,'username':'user1','email': 'user@email.com','phone':'8898767654'," + "'createdAt':'" + currentDate.toString() + "', 'updatedAt':null}"));
