@@ -7,6 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -23,6 +27,12 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity store(@RequestBody UserDTO dto) {
+        if (!dto.getPassword().equals(dto.getConfirmPassword())) {
+            Map<String, String> map = new HashMap<>();
+            map.put("message", "Senhas não batem.");
+            return badRequest().body(map);
+        }
+
         User user = User.builder()
                     .username(dto.getUsername())
                     .password(dto.getPassword())

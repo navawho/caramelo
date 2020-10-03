@@ -1,5 +1,6 @@
 package com.api.caramelo.controllers;
 
+import com.api.caramelo.controllers.dtos.UserDTO;
 import com.api.caramelo.models.User;
 import com.api.caramelo.services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,5 +49,17 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .json("{'id':1,'username':'user1','email': 'user@email.com','phone':'8898767654'," + "'createdAt':'" + currentDate.toString() + "', 'updatedAt':null}"));
+    }
+
+    @Test
+    public void shouldReturnErrorWhenPasswordsDoesNotMatch() throws Exception {
+        UserDTO userDto = UserDTO.builder().password("123456").confirmPassword("12345").build();
+
+        mockMvc.perform(post("/users")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(userDto)))
+                .andExpect(status().isBadRequest())
+                .andExpect(content()
+                        .json("{ 'message':'Senhas não batem.' }"));
     }
 }
