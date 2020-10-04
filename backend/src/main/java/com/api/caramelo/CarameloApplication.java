@@ -19,6 +19,7 @@ public class CarameloApplication {
 		AuthFilter authFilter = new AuthFilter();
 		registrationBean.setFilter(authFilter);
 		registrationBean.addUrlPatterns("/pets/*");
+		registrationBean.addUrlPatterns("/users/*");
 		return registrationBean;
 	}
 

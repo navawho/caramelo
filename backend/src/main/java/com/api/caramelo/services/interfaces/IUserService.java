@@ -1,7 +1,7 @@
 package com.api.caramelo.services.interfaces;
 
-import com.api.caramelo.controllers.dtos.UserDTO;
-import com.api.caramelo.exceptions.ErrorsWrapperException;
+import com.api.caramelo.controllers.dtos.CreateUserDTO;
+import com.api.caramelo.controllers.dtos.UpdateUserDTO;
 import com.api.caramelo.models.User;
 
 import java.util.List;
@@ -10,7 +10,7 @@ public interface IUserService {
 
     List<User> search();
 
-    User create(UserDTO userDto);
+    User create(CreateUserDTO userDTO);
 
-    ErrorsWrapperException validate(UserDTO userDto);
+    User update(UpdateUserDTO userDTO, Long userId);
 }

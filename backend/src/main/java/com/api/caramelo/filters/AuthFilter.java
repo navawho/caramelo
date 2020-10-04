@@ -21,27 +21,31 @@ public class AuthFilter extends GenericFilterBean {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        String authHeader = httpRequest.getHeader("Authorization");
-        if(authHeader != null) {
-            String[] authHeaderArr = authHeader.split("Bearer ");
-            if(authHeaderArr.length > 1 && authHeaderArr[1] != null) {
-                String token = authHeaderArr[1];
-                try {
-                    Claims claims = Jwts.parser().setSigningKey(JwtConstants.API_SECRET_KEY)
-                            .parseClaimsJws(token).getBody();
-                    httpRequest.setAttribute("userId", Integer.parseInt(claims.get("userId").toString()));
-                } catch(Exception e) {
-                    httpResponse.sendError(HttpStatus.FORBIDDEN.value(), "Token inválido");
+        // gambiarra para nao aplicar o filtro quando a rota for POST em users (nao consegui no CarameloApplication)
+        if((!"POST".equals(((HttpServletRequest) request).getMethod())) && ("/users").equals(((HttpServletRequest) request).getRequestURI())) {
+            String authHeader = httpRequest.getHeader("Authorization");
+            if(authHeader != null) {
+                String[] authHeaderArr = authHeader.split("Bearer ");
+                if(authHeaderArr.length > 1 && authHeaderArr[1] != null) {
+                    String token = authHeaderArr[1];
+                    try {
+                        Claims claims = Jwts.parser().setSigningKey(JwtConstants.API_SECRET_KEY)
+                                .parseClaimsJws(token).getBody();
+                        httpRequest.setAttribute("userId", Long.parseLong(claims.get("userId").toString()));
+                    } catch(Exception e) {
+                        httpResponse.sendError(HttpStatus.FORBIDDEN.value(), "Token inválido");
+                        return;
+                    }
+                } else {
+                    httpResponse.sendError(HttpStatus.FORBIDDEN.value(), "Envie um Bearer [token]");
                     return;
                 }
             } else {
-                httpResponse.sendError(HttpStatus.FORBIDDEN.value(), "Envie um Bearer [token]");
+                httpResponse.sendError(HttpStatus.FORBIDDEN.value(), "Token não encontrado");
                 return;
             }
-        } else {
-            httpResponse.sendError(HttpStatus.FORBIDDEN.value(), "Token não encontrado");
-            return;
         }
+
         chain.doFilter(request, response);
     }
 }
