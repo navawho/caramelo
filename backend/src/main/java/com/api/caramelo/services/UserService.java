@@ -22,11 +22,6 @@ public class UserService implements IUserService {
     private final UserRepository repository;
 
     @Override
-    public List<User> search() {
-        return repository.findAll();
-    }
-
-    @Override
     public User create(CreateUserDTO userDTO) {
         this.checkIfAlreadyExists(userDTO.getUsername(), userDTO.getEmail(), userDTO.getPhone());
 
@@ -43,13 +38,24 @@ public class UserService implements IUserService {
     public User update(UpdateUserDTO userDTO, Long userId) {
         this.checkIfAlreadyExists(userDTO.getUsername(), userDTO.getEmail(), userDTO.getPhone());
 
-        Optional<User> userFromDb = repository.findById(userId);
+        Optional<User> user = repository.findById(userId);
 
-        if (userFromDb.isEmpty()) {
+        if (user.isEmpty()) {
             throw new BusinessRuleException("Usuário com esse token não existe.");
         }
 
-        return repository.save(userFromDb.get());
+        return repository.save(user.get());
+    }
+
+    @Override
+    public User search(Long userId) {
+        Optional<User> user = repository.findById(userId);
+
+        if (user.isEmpty()) {
+            throw new BusinessRuleException("Usuário com esse token não existe.");
+        }
+
+        return user.get();
     }
 
     public void checkIfAlreadyExists(String username, String email, String phone) {

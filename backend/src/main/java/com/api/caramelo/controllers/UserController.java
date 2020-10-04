@@ -24,11 +24,6 @@ public class UserController {
 
     private final UserService service;
 
-    @GetMapping
-    public ResponseEntity index() {
-        return ok(service.search());
-    }
-
     @PostMapping
     public ResponseEntity store(@RequestBody @Valid CreateUserDTO userDTO) {
         try {
@@ -55,6 +50,20 @@ public class UserController {
             if(e.checkHasSomeError()){
                 map.put("errors", e.getErrors());
             }
+
+            return badRequest().body(map);
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity show(HttpServletRequest request) {
+        try {
+            Long userId = (Long) request.getAttribute("userId");
+
+            return ok(service.search(userId));
+        } catch (BusinessRuleException e) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("message", e.getMessage());
 
             return badRequest().body(map);
         }

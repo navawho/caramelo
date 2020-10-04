@@ -4,11 +4,9 @@ import com.api.caramelo.controllers.dtos.CreateUserDTO;
 import com.api.caramelo.controllers.dtos.UpdateUserDTO;
 import com.api.caramelo.models.User;
 
-import java.util.List;
-
 public interface IUserService {
 
-    List<User> search();
+    User search(Long userId);
 
     User create(CreateUserDTO userDTO);
 
