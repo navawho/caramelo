@@ -10,10 +10,11 @@ import com.api.caramelo.services.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.nonNull;
+import static org.mindrot.jbcrypt.BCrypt.gensalt;
+import static org.mindrot.jbcrypt.BCrypt.hashpw;
 
 @Service
 @RequiredArgsConstructor
@@ -25,9 +26,11 @@ public class UserService implements IUserService {
     public User create(CreateUserDTO userDTO) {
         this.checkIfAlreadyExists(userDTO.getUsername(), userDTO.getEmail(), userDTO.getPhone());
 
+        String hashedPassword = this.validateAndHashPassword(userDTO.getPassword(), userDTO.getConfirmPassword());
+
         User user = User.builder()
                 .username(userDTO.getUsername())
-                .password(userDTO.getPassword())
+                .password(hashedPassword)
                 .email(userDTO.getEmail())
                 .phone(userDTO.getPhone()).build();
 
@@ -58,7 +61,15 @@ public class UserService implements IUserService {
         return user.get();
     }
 
-    public void checkIfAlreadyExists(String username, String email, String phone) {
+    private String validateAndHashPassword(String password, String confirmPassword) {
+        if (!password.equals(confirmPassword)) {
+            throw new BusinessRuleException("Senhas não batem.");
+        }
+
+        return hashpw(password, gensalt(12));
+    }
+
+    private void checkIfAlreadyExists(String username, String email, String phone) {
         BusinessRuleException businessRuleException = new BusinessRuleException("Requisição possui campos inválidos.");
 
         if (nonNull(username) && nonNull(repository.findByUsername(username))) {

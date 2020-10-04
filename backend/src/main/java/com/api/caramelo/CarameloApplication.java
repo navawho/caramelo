@@ -22,5 +22,4 @@ public class CarameloApplication {
 		registrationBean.addUrlPatterns("/users/*");
 		return registrationBean;
 	}
-
 }

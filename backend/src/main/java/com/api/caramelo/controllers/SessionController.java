@@ -1,7 +1,8 @@
 package com.api.caramelo.controllers;
 
 import com.api.caramelo.JwtConstants;
-import com.api.caramelo.controllers.dtos.CreateUserDTO;
+import com.api.caramelo.controllers.dtos.SessionDTO;
+import com.api.caramelo.exceptions.BusinessRuleException;
 import com.api.caramelo.services.SessionService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -15,6 +16,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -24,10 +26,17 @@ public class SessionController {
     private final SessionService service;
 
     @PostMapping("/login")
-    public ResponseEntity store(@RequestBody CreateUserDTO dto) {
-        Long userId = service.validateCredentials(dto);
+    public ResponseEntity store(@RequestBody SessionDTO sessionDTO) {
+        try {
+            Long userId = service.validateCredentials(sessionDTO.getUsername(), sessionDTO.getPassword());
 
-        return ok(this.generateJWTToken(userId));
+            return ok(this.generateJWTToken(userId));
+        } catch (BusinessRuleException e) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("message", e.getMessage());
+
+            return badRequest().body(map);
+        }
     }
 
     private Map<String, String> generateJWTToken(Long userId) {
