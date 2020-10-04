@@ -51,7 +51,10 @@ public class UserController {
         } catch (BusinessRuleException e) {
             Map<String, Object> map = new HashMap<>();
             map.put("message", e.getMessage());
-            map.put("errors", e.getErrors());
+
+            if(e.checkHasSomeError()){
+                map.put("errors", e.getErrors());
+            }
 
             return badRequest().body(map);
         }

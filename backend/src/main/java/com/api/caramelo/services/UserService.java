@@ -4,7 +4,6 @@ import com.api.caramelo.controllers.dtos.CreateUserDTO;
 import com.api.caramelo.controllers.dtos.UpdateUserDTO;
 import com.api.caramelo.exceptions.BusinessRuleException;
 import com.api.caramelo.exceptions.error.ErrorObject;
-import com.api.caramelo.exceptions.error.ErrorResponse;
 import com.api.caramelo.models.User;
 import com.api.caramelo.repositories.UserRepository;
 import com.api.caramelo.services.interfaces.IUserService;
@@ -42,11 +41,12 @@ public class UserService implements IUserService {
 
     @Override
     public User update(UpdateUserDTO userDTO, Long userId) {
+        this.checkIfAlreadyExists(userDTO.getUsername(), userDTO.getEmail(), userDTO.getPhone());
 
         Optional<User> userFromDb = repository.findById(userId);
 
         if (userFromDb.isEmpty()) {
-            throw new BusinessRuleException("Usuário já está em uso.");
+            throw new BusinessRuleException("Usuário com esse token não existe.");
         }
 
         return repository.save(userFromDb.get());
