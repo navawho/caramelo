@@ -1,9 +1,7 @@
 package com.api.caramelo.controllers;
 
 import com.api.caramelo.JwtConstants;
-import com.api.caramelo.controllers.dtos.UserDTO;
-import com.api.caramelo.models.User;
-import com.api.caramelo.services.PetService;
+import com.api.caramelo.controllers.dtos.CreateUserDTO;
 import com.api.caramelo.services.SessionService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -26,7 +24,7 @@ public class SessionController {
     private final SessionService service;
 
     @PostMapping("/login")
-    public ResponseEntity store(@RequestBody UserDTO dto) {
+    public ResponseEntity store(@RequestBody CreateUserDTO dto) {
         Long userId = service.validateCredentials(dto);
 
         return ok(this.generateJWTToken(userId));
