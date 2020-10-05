@@ -23,7 +23,7 @@ public class UserController {
 
     private final UserService service;
 
-    @PostMapping("/sign-in")
+    @PostMapping("/sign-up")
     public ResponseEntity store(@RequestBody @Valid CreateUserDTO userDTO) {
         try {
             return ok(service.create(userDTO));
