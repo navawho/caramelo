@@ -21,6 +21,7 @@ public class CarameloApplication {
 		registrationBean.addUrlPatterns("/pets/*");
 		registrationBean.addUrlPatterns("/users/*");
 		registrationBean.addUrlPatterns("/solicitations/*");
+		registrationBean.addUrlPatterns("/adoptions/*");
 		return registrationBean;
 	}
 }
