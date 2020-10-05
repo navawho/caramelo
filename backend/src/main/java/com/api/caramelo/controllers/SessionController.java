@@ -25,7 +25,7 @@ public class SessionController {
 
     private final SessionService service;
 
-    @PostMapping("/login")
+    @PostMapping("/sign-in")
     public ResponseEntity store(@RequestBody SessionDTO sessionDTO) {
         try {
             Long userId = service.validateCredentials(sessionDTO.getUsername(), sessionDTO.getPassword());

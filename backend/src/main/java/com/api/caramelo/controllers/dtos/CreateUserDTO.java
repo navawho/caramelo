@@ -16,6 +16,7 @@ public class CreateUserDTO {
     @Size(min = 6, message = "Senha deve ter no mínimo 6 caracteres.")
     private String password;
 
+    @NotBlank(message = "Confirmação de senha é obrigatória.")
     private String confirmPassword;
 
     @NotBlank(message = "E-mail é obrigatório.")

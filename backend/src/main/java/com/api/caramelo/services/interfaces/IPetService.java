@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IPetService {
 
-    List<Pet> search();
+    List<Pet> search(Pet pet, Long userId);
 }

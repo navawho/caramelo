@@ -1,5 +1,6 @@
 package com.api.caramelo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,6 +39,9 @@ public class Pet {
 
     @Column(nullable = false)
     private String sex;
+
+    @Column(nullable = false)
+    private Boolean available;
 
     @Column(name = "birth_date", nullable = false)
     @Convert(converter = Jsr310JpaConverters.LocalDateConverter.class)

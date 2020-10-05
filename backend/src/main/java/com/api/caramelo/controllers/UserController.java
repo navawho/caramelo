@@ -18,13 +18,12 @@ import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService service;
 
-    @PostMapping
+    @PostMapping("/sign-up")
     public ResponseEntity store(@RequestBody @Valid CreateUserDTO userDTO) {
         try {
             return ok(service.create(userDTO));
@@ -40,7 +39,7 @@ public class UserController {
         }
     }
 
-    @PatchMapping
+    @PatchMapping("/users")
     public ResponseEntity update(@RequestBody UpdateUserDTO userDTO, HttpServletRequest request) {
         try {
             Long userId = (Long) request.getAttribute("userId");
@@ -58,7 +57,7 @@ public class UserController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/users")
     public ResponseEntity show(HttpServletRequest request) {
         try {
             Long userId = (Long) request.getAttribute("userId");
