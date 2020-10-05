@@ -1,16 +1,14 @@
 package com.api.caramelo.controllers;
 
 import com.api.caramelo.controllers.dtos.CreateUserDTO;
-import com.api.caramelo.controllers.dtos.UpdateUserDTO;
 import com.api.caramelo.exceptions.BusinessRuleException;
-import com.api.caramelo.services.UserService;
+import com.api.caramelo.services.SolicitationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,47 +16,40 @@ import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
+@RequestMapping("/solicitations")
 @RequiredArgsConstructor
-public class UserController {
+public class SolicitationController {
 
-    private final UserService service;
+    private final SolicitationService service;
 
-    @PostMapping("/sign-in")
-    public ResponseEntity store(@RequestBody @Valid CreateUserDTO userDTO) {
-        try {
-            return ok(service.create(userDTO));
-        } catch (BusinessRuleException e) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("message", e.getMessage());
-
-            if(e.checkHasSomeError()) {
-                map.put("errors", e.getErrors());
-            }
-
-            return badRequest().body(map);
-        }
-    }
-
-    @PatchMapping("/users")
-    public ResponseEntity update(@RequestBody UpdateUserDTO userDTO, HttpServletRequest request) {
+    @PostMapping("{petId}")
+    public ResponseEntity store(HttpServletRequest request, @PathVariable Long petId) {
         try {
             Long userId = (Long) request.getAttribute("userId");
-            
-            return ok(service.update(userDTO, userId));
+
+            return ok(service.create(userId, petId));
         } catch (BusinessRuleException e) {
             Map<String, Object> map = new HashMap<>();
             map.put("message", e.getMessage());
-
-            if(e.checkHasSomeError()){
-                map.put("errors", e.getErrors());
-            }
 
             return badRequest().body(map);
         }
     }
 
-    @GetMapping("/users")
-    public ResponseEntity show(HttpServletRequest request) {
+    @PatchMapping("{solicitationId}/{accepted}")
+    public ResponseEntity update(@PathVariable Long solicitationId, @PathVariable String accepted) {
+        try {
+            return ok(service.update(solicitationId, accepted.matches("accept")));
+        } catch (BusinessRuleException e) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("message", e.getMessage());
+
+            return badRequest().body(map);
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity index(HttpServletRequest request) {
         try {
             Long userId = (Long) request.getAttribute("userId");
 

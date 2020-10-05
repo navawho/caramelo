@@ -20,6 +20,7 @@ public class CarameloApplication {
 		registrationBean.setFilter(authFilter);
 		registrationBean.addUrlPatterns("/pets/*");
 		registrationBean.addUrlPatterns("/users/*");
+		registrationBean.addUrlPatterns("/solicitations/*");
 		return registrationBean;
 	}
 }
