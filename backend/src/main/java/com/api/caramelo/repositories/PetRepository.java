@@ -8,4 +8,8 @@ import java.util.List;
 
 public interface PetRepository extends JpaRepository<Pet, Long> {
     List<Pet> findPetsByUserIsNotAndAvailableIsTrue(User user);
+
+    Pet findPetByName(String name);
+
+    void deleteById(Long petId);
 }
