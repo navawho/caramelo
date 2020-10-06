@@ -75,6 +75,17 @@ public class UserService implements IUserService {
         return user.get();
     }
 
+    @Override
+    public void delete(Long userId) {
+        Optional<User> user = repository.findById(userId);
+
+        if (user.isEmpty()) {
+            throw new BusinessRuleException("Usuário não existe.");
+        }
+
+        repository.delete(user.get());
+    }
+
     private String validateAndHashPassword(String password, String confirmPassword) {
         if (!password.equals(confirmPassword)) {
             throw new BusinessRuleException("Senhas não batem.");

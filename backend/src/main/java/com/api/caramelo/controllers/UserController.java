@@ -16,6 +16,7 @@ import java.util.Map;
 
 import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
+import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
 @RequiredArgsConstructor
@@ -63,6 +64,22 @@ public class UserController {
             Long userId = (Long) request.getAttribute("userId");
 
             return ok(service.search(userId));
+        } catch (BusinessRuleException e) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("message", e.getMessage());
+
+            return badRequest().body(map);
+        }
+    }
+    
+    @DeleteMapping("/users")
+    public ResponseEntity delete(HttpServletRequest request) {
+        try {
+            Long userId = (Long) request.getAttribute("userId");
+
+            service.delete(userId);
+            return noContent().build();
+
         } catch (BusinessRuleException e) {
             Map<String, Object> map = new HashMap<>();
             map.put("message", e.getMessage());
