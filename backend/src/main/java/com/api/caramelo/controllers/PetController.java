@@ -28,9 +28,11 @@ public class PetController {
     private final PetService service;
 
     @PostMapping
-    public ResponseEntity store(@RequestBody @Valid CreatePetDTO petDTO) {
+    public ResponseEntity store(@RequestBody @Valid CreatePetDTO petDTO, HttpServletRequest request) {
         try {
-            return ok(service.create(petDTO));
+            Long userId = (Long) request.getAttribute("userId");
+
+            return ok(service.create(petDTO, userId));
         } catch (BusinessRuleException e) {
             Map<String, Object> map = new HashMap<>();
             map.put("message", e.getMessage());
@@ -44,9 +46,11 @@ public class PetController {
     }
 
     @PatchMapping("{petId}")
-    public ResponseEntity update(@RequestBody UpdatePetDTO petDTO, @PathVariable Long petId) {
+    public ResponseEntity update(@RequestBody UpdatePetDTO petDTO, @PathVariable Long petId, HttpServletRequest request) {
         try {
-            return ok(service.update(petDTO, petId));
+            Long userId = (Long) request.getAttribute("userId");
+
+            return ok(service.update(petDTO, petId, userId));
         } catch (BusinessRuleException e) {
             Map<String, Object> map = new HashMap<>();
             map.put("message", e.getMessage());
@@ -60,10 +64,11 @@ public class PetController {
     }
 
     @DeleteMapping("{petId}")
-    public ResponseEntity delete(@PathVariable Long petId) {
+    public ResponseEntity delete(@PathVariable Long petId, HttpServletRequest request) {
         try {
-            System.out.println(petId);
-            service.delete(petId);
+            Long userId = (Long) request.getAttribute("userId");
+
+            service.delete(petId, userId);
             return ok().build();
 
         } catch (BusinessRuleException e) {

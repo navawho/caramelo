@@ -32,21 +32,36 @@ public class PetService implements IPetService {
     private final UserRepository userRepository;
 
     @Override
-    public Pet create(CreatePetDTO petDTO) {
+    public Pet create(CreatePetDTO petDTO, Long userId) {
         this.checkIfAlreadyExists(petDTO.getName());
 
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isEmpty()) {
+            throw new BusinessRuleException("Usuário com esse token não existe.");
+        }
+
         Pet pet = Pet.builder()
+                .user(user.get())
                 .name(petDTO.getName())
                 .sex(petDTO.getSex())
                 .type(petDTO.getType())
+                .birthDate(petDTO.getBirthDate())
+                .available(true)
                 .port(petDTO.getPort()).build();
 
         return petRepository.save(pet);
     }
 
     @Override
-    public Pet update(UpdatePetDTO petDTO, Long petId) {
+    public Pet update(UpdatePetDTO petDTO, Long petId, Long userId) {
         this.checkIfAlreadyExists(petDTO.getName());
+
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isEmpty()) {
+            throw new BusinessRuleException("Usuário com esse token não existe.");
+        }
 
         Optional<Pet> optionalPet = petRepository.findById(petId);
 
@@ -76,7 +91,13 @@ public class PetService implements IPetService {
     }
 
     @Override
-    public void delete(Long petId) {
+    public void delete(Long petId, Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isEmpty()) {
+            throw new BusinessRuleException("Usuário com esse token não existe.");
+        }
+
         petRepository.deleteById(petId);
     }
 

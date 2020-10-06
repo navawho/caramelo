@@ -1,9 +1,11 @@
 package com.api.caramelo.services;
 
 import com.api.caramelo.exceptions.BusinessRuleException;
+import com.api.caramelo.models.Adoption;
 import com.api.caramelo.models.Pet;
 import com.api.caramelo.models.Solicitation;
 import com.api.caramelo.models.User;
+import com.api.caramelo.repositories.AdoptionRepository;
 import com.api.caramelo.repositories.PetRepository;
 import com.api.caramelo.repositories.SolicitationRepository;
 import com.api.caramelo.repositories.UserRepository;
@@ -22,6 +24,7 @@ public class SolicitationService implements ISolicitationService {
     private final SolicitationRepository solicitationRepository;
     private final PetRepository petRepository;
     private final UserRepository userRepository;
+    private final AdoptionRepository adoptionRepository;
 
     @Override
     public Solicitation create(Long userId, Long petId) {
@@ -52,6 +55,21 @@ public class SolicitationService implements ISolicitationService {
 
         Solicitation solicitation = solicitationOptional.get();
         solicitation.setAccepted(accepted);
+
+        if (accepted) {
+            Adoption adoption = new Adoption();
+
+            Pet pet = solicitation.getPet();
+
+            adoption.setPet(pet);
+            adoption.setUser(solicitation.getUser());
+            adoption.setReturned(false);
+
+            pet.setAvailable(false);
+            petRepository.save(pet);
+
+            adoptionRepository.save(adoption);
+        }
 
         return solicitationRepository.save(solicitation);
     }

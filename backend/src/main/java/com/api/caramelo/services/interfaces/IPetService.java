@@ -10,9 +10,9 @@ public interface IPetService {
 
     List<Pet> search(Pet pet, Long userId);
 
-    Pet create(CreatePetDTO petDTO);
+    Pet create(CreatePetDTO petDTO, Long userId);
 
-    Pet update(UpdatePetDTO petDTO, Long userId);
+    Pet update(UpdatePetDTO petDTO, Long petId, Long userId);
 
-    void delete(Long petId);
+    void delete(Long petId, Long userId);
 }
