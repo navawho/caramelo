@@ -41,13 +41,27 @@ public class UserService implements IUserService {
     public User update(UpdateUserDTO userDTO, Long userId) {
         this.checkIfAlreadyExists(userDTO.getUsername(), userDTO.getEmail(), userDTO.getPhone());
 
-        Optional<User> user = repository.findById(userId);
+        Optional<User> optionalUser = repository.findById(userId);
 
-        if (user.isEmpty()) {
+        if (optionalUser.isEmpty()) {
             throw new BusinessRuleException("Usuário com esse token não existe.");
         }
 
-        return repository.save(user.get());
+        User user = optionalUser.get();
+
+        if (nonNull(userDTO.getUsername())) {
+            user.setUsername(userDTO.getUsername());
+        }
+
+        if (nonNull(userDTO.getEmail())) {
+            user.setEmail(userDTO.getEmail());
+        }
+
+        if (nonNull(userDTO.getPhone())) {
+            user.setPhone(userDTO.getPhone());
+        }
+
+        return repository.save(user);
     }
 
     @Override

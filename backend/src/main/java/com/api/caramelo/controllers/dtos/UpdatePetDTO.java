@@ -16,4 +16,5 @@ public class UpdatePetDTO {
 
     private String port;
 
+    private Boolean available;
 }

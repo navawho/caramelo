@@ -48,13 +48,31 @@ public class PetService implements IPetService {
     public Pet update(UpdatePetDTO petDTO, Long petId) {
         this.checkIfAlreadyExists(petDTO.getName());
 
-        Optional<Pet> pet = petRepository.findById(petId);
+        Optional<Pet> optionalPet = petRepository.findById(petId);
 
-        if (pet.isEmpty()) {
+        if (optionalPet.isEmpty()) {
             throw new BusinessRuleException("Impossível atualizar as informações de um Pet inexistente.");
         }
 
-        return petRepository.save(pet.get());
+        Pet pet = optionalPet.get();
+
+        if (nonNull(petDTO.getName())) {
+            pet.setName(petDTO.getName());
+        }
+
+        if (nonNull(petDTO.getPort())) {
+            pet.setPort(petDTO.getPort());
+        }
+
+        if (nonNull(petDTO.getSex())) {
+            pet.setSex(petDTO.getSex());
+        }
+
+        if (nonNull(petDTO.getAvailable())) {
+            pet.setAvailable(petDTO.getAvailable());
+        }
+
+        return petRepository.save(pet);
     }
 
     @Override
