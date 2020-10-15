@@ -18,6 +18,7 @@ import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.noContent;
 
+@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 public class UserController {

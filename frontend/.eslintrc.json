@@ -25,6 +25,7 @@
   },
   "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
   "rules":{
+    "no-unused-expressions": "off",
     "react/prop-types": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "prettier/prettier": "error",
