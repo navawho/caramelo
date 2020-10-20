@@ -68,7 +68,6 @@ public class PetController {
     public ResponseEntity delete(@PathVariable Long petId, HttpServletRequest request) {
         try {
             Long userId = (Long) request.getAttribute("userId");
-
             service.delete(petId, userId);
             return ok().build();
 

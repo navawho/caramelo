@@ -63,6 +63,10 @@ public class PetService implements IPetService {
             throw new BusinessRuleException("Usuário com esse token não existe.");
         }
 
+        if (userId != petRepository.findPetById(petId).getUser().getId()) {
+            throw new BusinessRuleException("Um usuário não pode atualizar um Pet de outro usuário");
+        }
+
         Optional<Pet> optionalPet = petRepository.findById(petId);
 
         if (optionalPet.isEmpty()) {
@@ -71,7 +75,7 @@ public class PetService implements IPetService {
 
         Pet pet = optionalPet.get();
 
-        if (nonNull(petDTO.getName())) {
+        if (nonNull(petDTO.getName()) && !(petDTO.getName().equals(pet.getName()))) {
             pet.setName(petDTO.getName());
         }
 
@@ -83,7 +87,7 @@ public class PetService implements IPetService {
             pet.setSex(petDTO.getSex());
         }
 
-        if (nonNull(petDTO.getAvailable())) {
+        if (nonNull(petDTO.getAvailable()) && pet.getAvailable()) {
             pet.setAvailable(petDTO.getAvailable());
         }
 
@@ -98,7 +102,12 @@ public class PetService implements IPetService {
             throw new BusinessRuleException("Usuário com esse token não existe.");
         }
 
+        if (userId != petRepository.findPetById(petId).getUser().getId()) {
+            throw new BusinessRuleException("Um usuário não pode deletar um Pet de outro usuário");
+        }
+
         petRepository.deleteById(petId);
+
     }
 
     @Override
