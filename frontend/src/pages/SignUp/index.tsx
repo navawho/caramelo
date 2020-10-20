@@ -15,8 +15,10 @@ import { Container, Content, Card, Inputs } from './styles';
 
 interface SignUpFormData {
 	username: string;
+	email: string;
 	password: string;
 	confirmPassword: string;
+	phone: string;
 }
 
 const SignUp: React.FC = () => {
@@ -31,8 +33,23 @@ const SignUp: React.FC = () => {
 				formRef.current?.setErrors({});
 
 				const schema = Yup.object().shape({
-					username: Yup.string().required('Username obrigatório'),
-					password: Yup.string().required('Senha obrigatória'),
+					username: Yup.string()
+						.required('Username obrigatório')
+						.min(4, 'Username deve ter no mínimo 4 caracteres'),
+					password: Yup.string()
+						.required('Senha obrigatória')
+						.min(6, 'Senha deve ter no mínimo 6 caracteres.'),
+					email: Yup.string()
+						.required('E-mail obrigatório')
+						.email('E-mail inválido'),
+					phone: Yup.string()
+						.required('Telefone obrigatório')
+						.matches(
+							new RegExp(
+								'^(([\\d]{4}[-.\\s]{1}[\\d]{2,3}[-.\\s]{1}[\\d]{2}[-.\\s]{1}[\\d]{2})|([\\d]{4}[-.\\s]{1}[\\d]{3}[-.\\s]{1}[\\d]{4})|((\\(?\\+?[0-9]{2}\\)?\\s?)?(\\(?\\d{2}\\)?\\s?)?\\d{4,5}[-.\\s]?\\d{4}))$',
+							),
+							'Telefone inválido',
+						),
 				});
 
 				await schema.validate(data, { abortEarly: false });
@@ -85,15 +102,15 @@ const SignUp: React.FC = () => {
 								type="email"
 								id="email"
 								name="email"
-								placeholder="Seu email"
+								placeholder="seu@email.com"
 								icon={FiMail}
 							/>
 
 							<Input
-								type="text"
+								type="number"
 								id="phone"
 								name="phone"
-								placeholder="Seu telefone"
+								placeholder="(99) 9999-9999"
 								icon={FiPhone}
 							/>
 
