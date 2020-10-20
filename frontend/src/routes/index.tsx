@@ -12,7 +12,7 @@ import Route from './Route';
 
 const Routes: React.FC = () => (
 	<Switch>
-		<Route path="/dashboard" exact component={Dashboard} isPrivate />
+		<Route path="/" exact component={Dashboard} isPrivate />
 		<Route path="/adoptions" exact component={Adoptions} isPrivate />
 		<Route path="/sign-in" exact component={SignIn} />
 		<Route path="/sign-up" exact component={SignUp} />

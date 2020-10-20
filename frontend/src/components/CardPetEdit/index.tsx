@@ -33,8 +33,12 @@ const CardPet: React.FC = () => {
 				para brincar.
 			</p>
 			<div className="button-wrapper">
-				<button type="button">Editar</button>
-				<button type="button">Remover</button>
+				<button className="action-button" type="button">
+					Editar
+				</button>
+				<button className="action-button" type="button">
+					Remover
+				</button>
 			</div>
 		</Container>
 	);

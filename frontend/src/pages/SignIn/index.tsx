@@ -1,6 +1,6 @@
 import React, { useRef, useCallback } from 'react';
 import { FiMail, FiLock } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -10,7 +10,8 @@ import Input from '../../components/Input';
 import { Container, Content, Card, Inputs } from './styles';
 
 import Logo from '../../assets/Logo.png';
-import { useAuth } from '../../hooks/AuthContext';
+import { useAuth } from '../../hooks/auth';
+import { useToast } from '../../hooks/toast';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 interface SignInFormData {
@@ -21,7 +22,10 @@ interface SignInFormData {
 const SignIn: React.FC = () => {
 	const formRef = useRef<FormHandles>(null);
 
-	const { token, signIn } = useAuth();
+	const { signIn } = useAuth();
+	const { addToast } = useToast();
+
+	const history = useHistory();
 
 	const handleSubmit = useCallback(
 		async (data: SignInFormData) => {
@@ -35,16 +39,32 @@ const SignIn: React.FC = () => {
 
 				await schema.validate(data, { abortEarly: false });
 
-				console.log(data);
+				await signIn({ username: data.username, password: data.password });
 
-				signIn({ username: data.username, password: data.password });
+				addToast({
+					type: 'sucess',
+					title: 'Sucesso na autenticação',
+					description: 'Login realizado com sucesso.',
+				});
+
+				history.push('/');
 			} catch (err) {
-				const errors = getValidationErrors(err);
+				if (err instanceof Yup.ValidationError) {
+					const errors = getValidationErrors(err);
 
-				formRef.current?.setErrors(errors);
+					formRef.current?.setErrors(errors);
+
+					return;
+				}
+
+				addToast({
+					type: 'error',
+					title: 'Erro na autenticação',
+					description: 'Ocorreu um erro ao fazer login, cheque as credenciais.',
+				});
 			}
 		},
-		[signIn],
+		[addToast, history, signIn],
 	);
 
 	return (
@@ -71,7 +91,9 @@ const SignIn: React.FC = () => {
 								placeholder="Sua senha"
 								icon={FiMail}
 							/>
-							<button type="submit">Entrar</button>
+							<button className="action-button" type="submit">
+								Entrar
+							</button>
 							<Link to="/sign-up">Ainda não possui conta? Cadastre-se</Link>
 						</Inputs>
 					</Form>
