@@ -26,6 +26,10 @@ export default createGlobalStyle`
 
 	button {
 		cursor: pointer;
+	}
+
+	.action-button {
+		cursor: pointer;
 		border: 0;
 		background-color: #c94217;
 		font-weight: 700;

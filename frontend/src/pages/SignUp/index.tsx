@@ -16,7 +16,7 @@ const SignUp: React.FC = () => {
 	return (
 		<Container>
 			<Content>
-				<img src={Logo} alt="Caramelo"/>
+				<img src={Logo} alt="Caramelo" />
 				<Card>
 					<h3>Cadastrar</h3>
 					<Form ref={formRef} onSubmit={() => {}}>
@@ -45,10 +45,10 @@ const SignUp: React.FC = () => {
 								placeholder="Sua senha"
 								icon={FiMail}
 							/>
-							<button type="submit">Cadastrar</button>
-							<Link to="/sign-in">
-								Já possui conta? Faça login
-							</Link>
+							<button className="action-button" type="submit">
+								Cadastrar
+							</button>
+							<Link to="/sign-in">Já possui conta? Faça login</Link>
 						</Inputs>
 					</Form>
 				</Card>
