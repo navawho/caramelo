@@ -25,6 +25,10 @@ export const Container = styled.div<ContainerProps>`
 
 	transition: 0.3s;
 
+	& + div {
+		margin-top: 8px;
+	}
+
 	svg {
 		margin-right: 16px;
 	}
