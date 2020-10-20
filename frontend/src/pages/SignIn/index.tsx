@@ -1,5 +1,5 @@
 import React, { useRef, useCallback } from 'react';
-import { FiMail, FiLock } from 'react-icons/fi';
+import { FiUser, FiLock } from 'react-icons/fi';
 import { Link, useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
@@ -81,7 +81,7 @@ const SignIn: React.FC = () => {
 								id="username"
 								name="username"
 								placeholder="Seu username"
-								icon={FiLock}
+								icon={FiUser}
 							/>
 							<label htmlFor="password">Senha</label>
 							<Input
@@ -89,7 +89,7 @@ const SignIn: React.FC = () => {
 								id="password"
 								name="password"
 								placeholder="Sua senha"
-								icon={FiMail}
+								icon={FiLock}
 							/>
 							<button className="action-button" type="submit">
 								Entrar
