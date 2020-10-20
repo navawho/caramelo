@@ -1,9 +1,7 @@
 package com.api.caramelo.controllers;
 
 import com.api.caramelo.controllers.dtos.CreatePetDTO;
-import com.api.caramelo.controllers.dtos.CreateUserDTO;
 import com.api.caramelo.controllers.dtos.UpdatePetDTO;
-import com.api.caramelo.controllers.dtos.UpdateUserDTO;
 import com.api.caramelo.exceptions.BusinessRuleException;
 import com.api.caramelo.models.Pet;
 import com.api.caramelo.services.PetService;
@@ -20,7 +18,6 @@ import java.util.Map;
 import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/pets")
 @RequiredArgsConstructor
