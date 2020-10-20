@@ -32,7 +32,9 @@ const CardPet: React.FC = () => {
 				passa, o que ele não tem de tamanho ele tem de energia, sempre pronto
 				para brincar.
 			</p>
-			<button type="button">Me adote</button>
+			<button className="action-button" type="button">
+				Me adote
+			</button>
 		</Container>
 	);
 };

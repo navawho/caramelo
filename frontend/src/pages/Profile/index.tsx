@@ -57,7 +57,9 @@ const Profile: React.FC = () => {
 						placeholder="Confirme a nova senha"
 						icon={FiLock}
 					/>
-					<button type="submit">Confirmar mudanças</button>
+					<button className="action-button" type="submit">
+						Confirmar mudanças
+					</button>
 				</Form>
 			</Content>
 		</Container>

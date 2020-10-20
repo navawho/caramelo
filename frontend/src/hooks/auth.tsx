@@ -1,5 +1,4 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
-import { Redirect } from 'react-router-dom';
 import api from '../services/api';
 
 interface Credentials {
@@ -43,8 +42,6 @@ const AuthProvider: React.FC = ({ children }) => {
 		localStorage.removeItem('@Caramelo:token');
 
 		setToken('');
-
-		return <Redirect to={{ pathname:  '/sign-in' }} />
 	}, []);
 
 	return (

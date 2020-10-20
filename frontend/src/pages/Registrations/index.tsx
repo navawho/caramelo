@@ -20,7 +20,9 @@ const Registration: React.FC = () => {
 				<Sidebar />
 			</SidebarContainer>
 			<Content>
-				<button type="button">Cadastrar Pet</button>
+				<button className="action-button" type="button">
+					Cadastrar Pet
+				</button>
 				<Pets>
 					<PetWrapper>
 						<CardPet />
@@ -31,8 +33,12 @@ const Registration: React.FC = () => {
 									<strong>Rick</strong>
 								</p>
 								<ButtonWrapper>
-									<button type="button">Aceitar</button>
-									<button type="button">Recusar</button>
+									<button className="action-button" type="button">
+										Aceitar
+									</button>
+									<button className="action-button" type="button">
+										Recusar
+									</button>
 								</ButtonWrapper>
 							</Solicitation>
 							<Solicitation>
@@ -41,8 +47,12 @@ const Registration: React.FC = () => {
 									<strong>Rick</strong>
 								</p>
 								<ButtonWrapper>
-									<button type="button">Aceitar</button>
-									<button type="button">Recusar</button>
+									<button className="action-button" type="button">
+										Aceitar
+									</button>
+									<button className="action-button" type="button">
+										Recusar
+									</button>
 								</ButtonWrapper>
 							</Solicitation>
 							<Solicitation>
@@ -51,8 +61,12 @@ const Registration: React.FC = () => {
 									<strong>Rick</strong>
 								</p>
 								<ButtonWrapper>
-									<button type="button">Aceitar</button>
-									<button type="button">Recusar</button>
+									<button className="action-button" type="button">
+										Aceitar
+									</button>
+									<button className="action-button" type="button">
+										Recusar
+									</button>
 								</ButtonWrapper>
 							</Solicitation>
 							<Solicitation>
@@ -61,8 +75,12 @@ const Registration: React.FC = () => {
 									<strong>Rick</strong>
 								</p>
 								<ButtonWrapper>
-									<button type="button">Aceitar</button>
-									<button type="button">Recusar</button>
+									<button className="action-button" type="button">
+										Aceitar
+									</button>
+									<button className="action-button" type="button">
+										Recusar
+									</button>
 								</ButtonWrapper>
 							</Solicitation>
 						</Solicitations>
