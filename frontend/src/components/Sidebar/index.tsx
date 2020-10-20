@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { FiHome, FiClipboard, FiUser, FiLogOut } from 'react-icons/fi';
 import { FaPaw } from 'react-icons/fa';
@@ -6,8 +6,11 @@ import { FaPaw } from 'react-icons/fa';
 import { Container, NavContainer, NavItem } from './styles';
 
 import Logo from '../../assets/Logo-no-font.png';
+import { useAuth } from '../../hooks/AuthContext';
 
 const Sidebar: React.FC = () => {
+	const { signOut } = useAuth();
+	
 	return (
 		<Container>
 			<NavContainer>
@@ -16,7 +19,7 @@ const Sidebar: React.FC = () => {
 						<img src={Logo} alt="Caramelo"/>
 					</NavItem>
 					<NavItem>
-						<Link to="/">
+						<Link to="/dashboard">
 							<FiHome size={30} />
 							<p>Dashboard</p>
 						</Link>
@@ -41,11 +44,9 @@ const Sidebar: React.FC = () => {
 					</NavItem>
 				</div>
 				<div className="botNav">
-					<NavItem>
-						<Link to="">
+					<NavItem onClick={signOut}>
 							<FiLogOut size={30} />
 							<p>Sair</p>
-						</Link>
 					</NavItem>
 				</div>
 			</NavContainer>

@@ -15,6 +15,7 @@ import java.util.Map;
 import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/solicitations")
 @RequiredArgsConstructor
