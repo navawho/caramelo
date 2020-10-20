@@ -75,7 +75,7 @@ public class PetService implements IPetService {
 
         Pet pet = optionalPet.get();
 
-        if (nonNull(petDTO.getName())) {
+        if (nonNull(petDTO.getName()) && !(petDTO.getName().equals(pet.getName()))) {
             pet.setName(petDTO.getName());
         }
 
@@ -87,7 +87,7 @@ public class PetService implements IPetService {
             pet.setSex(petDTO.getSex());
         }
 
-        if (nonNull(petDTO.getAvailable())) {
+        if (nonNull(petDTO.getAvailable()) && pet.getAvailable()) {
             pet.setAvailable(petDTO.getAvailable());
         }
 

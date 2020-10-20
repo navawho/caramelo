@@ -11,10 +11,15 @@ import com.api.caramelo.repositories.SolicitationRepository;
 import com.api.caramelo.repositories.UserRepository;
 import com.api.caramelo.services.interfaces.ISolicitationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.exact;
 
 
 @Service
@@ -82,6 +87,6 @@ public class SolicitationService implements ISolicitationService {
             throw new BusinessRuleException("Usuário com esse token não existe.");
         }
 
-        return solicitationRepository.findByUser(user.get());
+        return solicitationRepository.findSolicitations(userId);
     }
 }
