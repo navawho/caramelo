@@ -1,6 +1,5 @@
 package com.api.caramelo.controllers;
 
-import com.api.caramelo.controllers.dtos.CreateUserDTO;
 import com.api.caramelo.exceptions.BusinessRuleException;
 import com.api.caramelo.services.SolicitationService;
 import lombok.RequiredArgsConstructor;
@@ -8,14 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/solicitations")
 @RequiredArgsConstructor
