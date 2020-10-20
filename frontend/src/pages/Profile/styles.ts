@@ -39,12 +39,8 @@ export const Content = styled.div`
 			color: #fff;
 		}
 
-		div {
-			margin-bottom: 12px;
-		}
-
-		.email {
-			margin-bottom: 12px;
+		.phone {
+			margin-bottom: 36px;
 		}
 	}
 `;
