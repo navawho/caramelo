@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ISolicitationService {
 
+    void delete(Long solicitationId, Long userId);
+
     Solicitation create(Long userId, Long petId);
 
     Solicitation update(Long solicitationId, Boolean accepted);

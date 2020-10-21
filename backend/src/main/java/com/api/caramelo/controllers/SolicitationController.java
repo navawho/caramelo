@@ -46,6 +46,25 @@ public class SolicitationController {
         }
     }
 
+    @DeleteMapping("{solicitationId}")
+    public ResponseEntity delete(@PathVariable Long solicitationId, HttpServletRequest request) {
+        try {
+            Long userId = (Long) request.getAttribute("userId");
+            service.delete(solicitationId, userId);
+
+            return ok().build();
+        } catch (BusinessRuleException e) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("message", e.getMessage());
+
+            if(e.checkHasSomeError()){
+                map.put("errors", e.getErrors());
+            }
+
+            return badRequest().body(map);
+        }
+    }
+
     @GetMapping
     public ResponseEntity index(HttpServletRequest request) {
         try {
