@@ -184,10 +184,17 @@ const SignUp: React.FC = () => {
 					<Pets>
 						{pets.map((pet) => (
 							<CardPet
+								key={pet.id}
 								buttonName="Me adote!"
 								pet={pet}
 								handleClickButton={() => {
-									console.log(`Clicou no pet ${pet.name}`);
+									api.post(
+										`/solicitations/${pet.id}`,
+										{},
+										{
+											headers: { Authorization: `Bearer ${token}` },
+										},
+									);
 								}}
 							/>
 						))}
