@@ -19,6 +19,9 @@ public class CreatePetDTO {
     @NotBlank(message = "O sexo do Pet deve ser especificado!")
     private String sex;
 
+    @NotBlank(message = "Uma imagem do Pet é obrigatória!")
+    private String imageUrl;
+
     @NotBlank(message = "O porte do Pet é obrigatório")
     private String port;
 
