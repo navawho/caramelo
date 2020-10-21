@@ -1,7 +1,7 @@
 import React from 'react';
+import Pet from '../../interfaces/Pet';
 
 import { Container } from './styles';
-import { Pet } from '../../pages/Dashboard';
 
 interface Props {
 	pet: Pet;
