@@ -20,8 +20,6 @@ public class UpdateUserDTO {
 
     private String oldPassword;
 
-    private String confirmOldPassword;
-
     @Email(message = "E-mail inválido.")
     private String email;
 

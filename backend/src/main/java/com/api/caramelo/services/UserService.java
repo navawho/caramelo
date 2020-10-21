@@ -13,8 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 import static java.util.Objects.nonNull;
-import static org.mindrot.jbcrypt.BCrypt.gensalt;
-import static org.mindrot.jbcrypt.BCrypt.hashpw;
+import static org.mindrot.jbcrypt.BCrypt.*;
 
 @Service
 @RequiredArgsConstructor
@@ -48,6 +47,16 @@ public class UserService implements IUserService {
         }
 
         User user = optionalUser.get();
+
+        if (!checkpw(userDTO.getOldPassword(), user.getPassword())) {
+            throw new BusinessRuleException("Senha antiga inválida.");
+        }
+
+        String hashedPassword = this.validateAndHashPassword(userDTO.getPassword(), userDTO.getConfirmPassword());
+
+        if (nonNull(userDTO.getPassword())) {
+            user.setPassword(hashedPassword);
+        }
 
         if (nonNull(userDTO.getUsername())) {
             user.setUsername(userDTO.getUsername());
