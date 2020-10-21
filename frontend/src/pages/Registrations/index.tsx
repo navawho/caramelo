@@ -81,7 +81,7 @@ const Registration: React.FC = () => {
 						Cadastrar Pet
 					</button>
 					<Pets>
-						<PetWrapper>
+						{/* <PetWrapper>
 							<CardPet />
 							<Solicitations>
 								<Solicitation>
@@ -141,10 +141,12 @@ const Registration: React.FC = () => {
 									</ButtonWrapper>
 								</Solicitation>
 							</Solicitations>
-						</PetWrapper>
-						<PetWrapper>
-							<CardPet />
-						</PetWrapper>
+						</PetWrapper> */}
+						{pets.map((pet) => (
+							<PetWrapper key={pet.id}>
+								<CardPet pet={pet} />
+							</PetWrapper>
+						))}
 					</Pets>
 				</Content>
 			</Container>
