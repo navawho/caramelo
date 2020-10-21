@@ -7,6 +7,8 @@ import com.api.caramelo.services.interfaces.ISessionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 import static org.mindrot.jbcrypt.BCrypt.checkpw;
 
 @Service
@@ -17,12 +19,16 @@ public class SessionService implements ISessionService {
 
     @Override
     public Long validateCredentials(String username, String password) {
-        User user = repository.findByUsername(username);
+        Optional<User> user = repository.findByUsername(username);
 
-        if (!checkpw(password, user.getPassword())) {
+        if(user.isEmpty()) {
+            throw new BusinessRuleException("Usuário não existe");
+        }
+
+        if (!checkpw(password, user.get().getPassword())) {
             throw new BusinessRuleException("Credenciais inválidas.");
         }
 
-        return user.getId();
+        return user.get().getId();
     }
 }
