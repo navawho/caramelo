@@ -32,6 +32,7 @@ const ModalAddPet: React.FC<ModalProps> = ({
 
 	const handleSubmit = useCallback(
 		async (data: CreatePetData) => {
+			console.log(data);
 			handleAddPet(data);
 
 			setIsOpen();

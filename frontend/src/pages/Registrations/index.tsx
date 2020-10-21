@@ -17,13 +17,13 @@ import {
 	SidebarContainer,
 } from './styles';
 import Pet from '../../interfaces/Pet';
-import ModalEditPet from '../../components/ModalEditPet';
+import ModalUpdatePet from '../../components/ModalUpdatePet';
 
 const Registration: React.FC = () => {
 	const [modalOpen, setModalOpen] = useState(false);
-	const [editModalOpen, setEditModalOpen] = useState(false);
+	const [updateModalOpen, setUpdateModalOpen] = useState(false);
 	const [pets, setPets] = useState<Pet[]>([]);
-	const [selectedPet, setSelectedPet] = useState({} as Pet);
+	const [editingPet, setEditingPet] = useState({} as Pet);
 
 	const { addToast } = useToast();
 	const { token } = useAuth();
@@ -64,8 +64,13 @@ const Registration: React.FC = () => {
 		setModalOpen(!modalOpen);
 	}
 
-	function toggleEditModal(): void {
-		setEditModalOpen(!editModalOpen);
+	function toggleUpdateModal(): void {
+		setUpdateModalOpen(!updateModalOpen);
+	}
+
+	function handleEditPet(pet: Pet) {
+		setEditingPet(pet);
+		toggleUpdateModal();
 	}
 
 	async function handleRemovePet(petId: number): Promise<void> {
@@ -80,6 +85,44 @@ const Registration: React.FC = () => {
 		}
 	}
 
+	async function handleUpdatePet(pet: Pet): Promise<void> {
+		try {
+			const updateData: any = {};
+			
+			if (pet.name !== editingPet.name) {
+				updateData.name = pet.name;
+			}
+
+			if (pet.imageUrl !== editingPet.imageUrl) {
+				updateData.imageUrl = pet.imageUrl;
+			}
+
+			if (pet.description !== editingPet.description) {
+				updateData.description = pet.description;
+			}
+
+			if (pet.port !== editingPet.port) {
+				updateData.port = pet.port;
+			}
+
+			if (pet.sex !== editingPet.sex) {
+				updateData.sex = pet.sex;
+			}
+
+			if (pet.type !== editingPet.type) {
+				updateData.type = pet.type;
+			}
+
+			const { data } = await api.patch(`/pets/${editingPet.id}`, {...updateData}, { headers: { Authorization: `Bearer ${token}` } });
+
+			setPets(pets.map(mappedPet => mappedPet.id === editingPet.id ? {...data} : mappedPet))
+
+			addToast({ type: 'sucess', title: 'Pet atualizado com sucesso!' });
+		} catch(err) {
+			addToast({type: 'error', title: 'Erro na atualização', description: 'Ocorreu um erro ao tentar atualizar o pet, por favor tente novamente'})
+		}
+	}
+
 	return (
 		<>
 			<ModalAddPet
@@ -87,10 +130,11 @@ const Registration: React.FC = () => {
 				setIsOpen={toggleModal}
 				handleAddPet={handleAddPet}
 			/>
-			<ModalEditPet
-				isOpen={editModalOpen}
-				setIsOpen={toggleEditModal}
-				pet={selectedPet}
+			<ModalUpdatePet
+				isOpen={updateModalOpen}
+				setIsOpen={toggleUpdateModal}
+				handleUpdatePet={handleUpdatePet}
+				pet={editingPet}
 			/>
 			<Container>
 				<SidebarContainer>
@@ -168,7 +212,7 @@ const Registration: React.FC = () => {
 						</PetWrapper> */}
 						{pets.map((pet) => (
 							<PetWrapper key={pet.id}>
-								<CardPetEdit pet={pet} handleRemoveButton={handleRemovePet} />
+								<CardPetEdit pet={pet} handleRemoveButton={handleRemovePet} handleUpdateButton={handleEditPet} />
 							</PetWrapper>
 						))}
 					</Pets>
