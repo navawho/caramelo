@@ -35,6 +35,9 @@ public class Pet {
     @Column(nullable = false, unique = true)
     private String name;
 
+    @Column(nullable = false, unique = true)
+    private String imageUrl;
+
     @Column(nullable = false)
     private String port;
 

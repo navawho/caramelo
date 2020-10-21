@@ -44,6 +44,7 @@ public class PetService implements IPetService {
         Pet pet = Pet.builder()
                 .user(user.get())
                 .name(petDTO.getName())
+                .imageUrl(petDTO.getImageUrl())
                 .sex(petDTO.getSex())
                 .type(petDTO.getType())
                 .birthDate(petDTO.getBirthDate())
@@ -77,6 +78,10 @@ public class PetService implements IPetService {
 
         if (nonNull(petDTO.getName()) && !(petDTO.getName().equals(pet.getName()))) {
             pet.setName(petDTO.getName());
+        }
+
+        if (nonNull(petDTO.getImageUrl())) {
+            pet.setImageUrl(petDTO.getImageUrl());
         }
 
         if (nonNull(petDTO.getPort())) {
