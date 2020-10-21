@@ -5,10 +5,11 @@ import { Container } from './styles';
 
 interface Props {
 	pet: Pet;
+	handleUpdateButton:(pet: Pet) => void;
 	handleRemoveButton:(petId: number) => void;
 }
 
-const CardPet: React.FC<Props> = ({ pet, handleRemoveButton }) => {
+const CardPet: React.FC<Props> = ({ pet, handleRemoveButton, handleUpdateButton }) => {
 	return (
 		<Container>
 			<div className="box-1">
@@ -35,7 +36,7 @@ const CardPet: React.FC<Props> = ({ pet, handleRemoveButton }) => {
 			<label>Descrição</label>
 			<p>{pet.description}</p>
 			<div className="button-wrapper">
-				<button className="action-button" type="button">
+				<button className="action-button" type="button" onClick={() => {handleUpdateButton(pet)}}>
 					Editar
 				</button>
 				<button className="action-button" type="button" onClick={() => {handleRemoveButton(pet.id)}}>

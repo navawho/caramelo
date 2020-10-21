@@ -20,4 +20,11 @@ export const Form = styled(Unform)`
 
 		color: white;
 	}
+
+	label {
+		color: #333333;
+		& + div {
+			margin: 6px 0;
+		}
+	}
 `;

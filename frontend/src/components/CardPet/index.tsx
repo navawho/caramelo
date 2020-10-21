@@ -14,7 +14,7 @@ const CardPet: React.FC<Props> = ({ pet, buttonName, handleClickButton }) => {
 		<Container>
 			<div className="box-1">
 				<img
-					src="https://www.rbsdirect.com.br/imagesrc/25743537.jpg?w=580"
+					src={pet.imageUrl}
 					alt={pet.name}
 				/>
 				<div>
