@@ -3,6 +3,7 @@ package com.api.caramelo.controllers;
 import com.api.caramelo.JwtConstants;
 import com.api.caramelo.controllers.dtos.SessionDTO;
 import com.api.caramelo.exceptions.BusinessRuleException;
+import com.api.caramelo.models.User;
 import com.api.caramelo.services.SessionService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -29,8 +30,13 @@ public class SessionController {
     public ResponseEntity store(@RequestBody SessionDTO sessionDTO) {
         try {
             Long userId = service.validateCredentials(sessionDTO.getUsername(), sessionDTO.getPassword());
+            User user = service.loggedUser(userId);
 
-            return ok(this.generateJWTToken(userId));
+            Map<String, Object> map = new HashMap<>();
+            map.put("user", user);
+            map.put("token", this.generateJWTToken(userId));
+
+            return ok(map);
         } catch (BusinessRuleException e) {
             Map<String, Object> map = new HashMap<>();
             map.put("message", e.getMessage());

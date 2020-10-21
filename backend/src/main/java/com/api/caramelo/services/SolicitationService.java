@@ -80,6 +80,18 @@ public class SolicitationService implements ISolicitationService {
     }
 
     @Override
+    public void delete(Long solicitationId, Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isEmpty()) {
+            throw new BusinessRuleException("Usuário com esse token não existe.");
+        }
+
+        solicitationRepository.deleteById(solicitationId);
+
+    }
+
+    @Override
     public List<Solicitation> search(Long userId) {
         Optional<User> user = userRepository.findById(userId);
 

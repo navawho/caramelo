@@ -7,6 +7,8 @@ import com.api.caramelo.services.interfaces.ISessionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 import static org.mindrot.jbcrypt.BCrypt.checkpw;
 
 @Service
@@ -24,5 +26,16 @@ public class SessionService implements ISessionService {
         }
 
         return user.getId();
+    }
+
+    @Override
+    public User loggedUser(Long userId) {
+        Optional<User> optionalUser = repository.findById(userId);
+
+        if (optionalUser.isEmpty()) {
+            throw new BusinessRuleException("Usuário com esse token não existe.");
+        }
+
+        return optionalUser.get();
     }
 }
