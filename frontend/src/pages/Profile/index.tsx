@@ -14,9 +14,12 @@ import Sidebar from '../../components/Sidebar';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 interface UpdateProfileFormData {
-	username?: string;
-	email?: string;
-	phone?: string;
+	username?: string,
+	email?: string,
+	phone?: string,
+	oldPassword?: string,
+	password?: string,
+	confirmPassword?: string
 }
 
 const Profile: React.FC = () => {
@@ -25,6 +28,9 @@ const Profile: React.FC = () => {
 		username: '',
 		email: '',
 		phone: '',
+		oldPassword: '',
+		password: '',
+		confirmPassword: '',
 	});
 	const { token } = useAuth();
 
@@ -32,9 +38,24 @@ const Profile: React.FC = () => {
 		api
 			.get('/users', { headers: { Authorization: `Bearer ${token}` } })
 			.then(({ data }) => {
-				const { username, email, phone } = data;
+				console.log(data)
+				const {
+					username,
+					email,
+					phone,
+					oldPassword,
+					password,
+					confirmPassword,
+				} = data;
 
-				setProfile({ username, email, phone });
+				setProfile({
+					username,
+					email,
+					phone,
+					oldPassword,
+					password,
+					confirmPassword,
+				});
 			});
 	}, [token]);
 
@@ -53,6 +74,15 @@ const Profile: React.FC = () => {
 
 					email: Yup.string().email('E-mail inválido'),
 					phone: Yup.string(),
+					oldPassword: Yup.string(),
+					password: Yup.string().min(
+						6,
+						'Senha deve ter no mínimo 6 caracteres',
+					),
+					confirmPassword: Yup.string().min(
+						6,
+						'Senha deve ter no mínimo 6 caracteres',
+					),
 				});
 
 				await schema.validate(data, { abortEarly: false });
