@@ -20,24 +20,7 @@ import {
 import CardPet from '../../components/CardPet';
 import Sidebar from '../../components/Sidebar';
 import { useAuth } from '../../hooks/auth';
-
-export interface Pet {
-	id: number;
-	user: {
-		id: number;
-		username: string;
-		email: string;
-		phone: string;
-	};
-	name: string;
-	port: string;
-	type: string;
-	available: boolean;
-	sex: string;
-	description: string;
-	imageUrl: string;
-	birthDate: string;
-}
+import Pet from '../../interfaces/Pet';
 
 const SignUp: React.FC = () => {
 	const [name, setName] = useState('');

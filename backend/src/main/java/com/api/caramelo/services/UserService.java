@@ -106,7 +106,7 @@ public class UserService implements IUserService {
     private void checkIfAlreadyExists(String username, String email, String phone) {
         BusinessRuleException businessRuleException = new BusinessRuleException("Requisição possui campos inválidos.");
 
-        if (nonNull(username) && nonNull(repository.findByUsername(username))) {
+        if (nonNull(username) && repository.findByUsername(username).isPresent()) {
             businessRuleException.addError(new ErrorObject("Já existe usuário com esse Username.", "username", username));
         }
 

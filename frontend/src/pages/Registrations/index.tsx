@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import CardPet from '../../components/CardPetEdit';
+import CardPetEdit from '../../components/CardPetEdit';
 import Sidebar from '../../components/Sidebar';
 import ModalAddPet from '../../components/ModalAddPet';
 import { useToast } from '../../hooks/toast';
 import { useAuth } from '../../hooks/auth';
-import { Pet } from '../Dashboard';
 import api from '../../services/api';
 
 import {
@@ -17,10 +16,14 @@ import {
 	Pets,
 	SidebarContainer,
 } from './styles';
+import Pet from '../../interfaces/Pet';
+import ModalEditPet from '../../components/ModalEditPet';
 
 const Registration: React.FC = () => {
 	const [modalOpen, setModalOpen] = useState(false);
+	const [editModalOpen, setEditModalOpen] = useState(false);
 	const [pets, setPets] = useState<Pet[]>([]);
+	const [selectedPet, setSelectedPet] = useState({} as Pet);
 
 	const { addToast } = useToast();
 	const { token } = useAuth();
@@ -36,7 +39,7 @@ const Registration: React.FC = () => {
 	}, [token]);
 
 	async function handleAddPet(
-		pet: Omit<Pet, 'id' | 'user' | 'available' | 'description'>,
+		pet: Omit<Pet, 'id' | 'user' | 'available'>,
 	): Promise<void> {
 		try {
 			const response = await api.post(
@@ -61,12 +64,33 @@ const Registration: React.FC = () => {
 		setModalOpen(!modalOpen);
 	}
 
+	function toggleEditModal(): void {
+		setEditModalOpen(!editModalOpen);
+	}
+
+	async function handleRemovePet(petId: number): Promise<void> {
+		try {
+			await api.delete(`/pets/${petId}`, { headers: { Authorization: `Bearer ${token}` } });
+
+			setPets((oldPets) => oldPets.filter(pet => pet.id !== petId))
+
+			addToast({ type: 'sucess', title: 'Pet removido com sucesso!' });
+		} catch(err) {
+			addToast({type: 'error', title: 'Erro na deleção', description: 'Ocorreu um erro ao tentar deletar o pet, por favor tente novamente'})
+		}
+	}
+
 	return (
 		<>
 			<ModalAddPet
 				isOpen={modalOpen}
 				setIsOpen={toggleModal}
 				handleAddPet={handleAddPet}
+			/>
+			<ModalEditPet
+				isOpen={editModalOpen}
+				setIsOpen={toggleEditModal}
+				pet={selectedPet}
 			/>
 			<Container>
 				<SidebarContainer>
@@ -144,7 +168,7 @@ const Registration: React.FC = () => {
 						</PetWrapper> */}
 						{pets.map((pet) => (
 							<PetWrapper key={pet.id}>
-								<CardPet pet={pet} />
+								<CardPetEdit pet={pet} handleRemoveButton={handleRemovePet} />
 							</PetWrapper>
 						))}
 					</Pets>

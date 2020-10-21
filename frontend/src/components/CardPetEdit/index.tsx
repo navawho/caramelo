@@ -1,19 +1,20 @@
 import React from 'react';
+import Pet from '../../interfaces/Pet';
 
 import { Container } from './styles';
-import { Pet } from '../../pages/Dashboard';
 
 interface Props {
 	pet: Pet;
+	handleRemoveButton:(petId: number) => void;
 }
 
-const CardPet: React.FC<Props> = ({ pet }) => {
+const CardPet: React.FC<Props> = ({ pet, handleRemoveButton }) => {
 	return (
 		<Container>
 			<div className="box-1">
 				<img
-					src="https://www.rbsdirect.com.br/imagesrc/25743537.jpg?w=580"
-					alt="Caramelo"
+					src={pet.imageUrl}
+					alt={pet.name}
 				/>
 				<div>
 					<h3>{pet.name}</h3>
@@ -37,7 +38,7 @@ const CardPet: React.FC<Props> = ({ pet }) => {
 				<button className="action-button" type="button">
 					Editar
 				</button>
-				<button className="action-button" type="button">
+				<button className="action-button" type="button" onClick={() => {handleRemoveButton(pet.id)}}>
 					Remover
 				</button>
 			</div>

@@ -5,7 +5,7 @@ import { FormHandles } from '@unform/core';
 import { Form } from './styles';
 import Modal from '../Modal';
 import Input from '../Input';
-import { Pet } from '../../pages/Dashboard';
+import Pet from '../../interfaces/Pet';
 
 interface CreatePetData {
 	name: string;
@@ -43,7 +43,7 @@ const ModalAddPet: React.FC<ModalProps> = ({
 		<Modal isOpen={isOpen} setIsOpen={setIsOpen}>
 			<Form ref={formRef} onSubmit={handleSubmit}>
 				<h1>Novo Pet</h1>
-				<Input name="image" placeholder="Cole o link aqui" icon={FiImage} />
+				<Input name="imageUrl" placeholder="Cole o link aqui" icon={FiImage} />
 
 				<Input name="name" placeholder="Nome" />
 				<Input name="port" placeholder="Porte" />

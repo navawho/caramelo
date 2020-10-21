@@ -45,15 +45,13 @@ public class SessionController {
         }
     }
 
-    private Map<String, String> generateJWTToken(Long userId) {
+    private String generateJWTToken(Long userId) {
         long timestamp = System.currentTimeMillis();
         String token = Jwts.builder().signWith(SignatureAlgorithm.HS256, JwtConstants.API_SECRET_KEY)
                 .setIssuedAt(new Date(timestamp))
                 .setExpiration(new Date(timestamp + JwtConstants.TOKEN_VALIDITY))
                 .claim("userId", userId)
                 .compact();
-        Map<String, String> map = new HashMap<>();
-        map.put("token", token);
-        return map;
+        return token;
     }
 }
