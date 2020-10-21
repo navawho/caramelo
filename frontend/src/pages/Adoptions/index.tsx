@@ -12,22 +12,14 @@ const Adoptions: React.FC = () => {
 			<Content>
 				<LeftContent>
 					<h2>Adoções</h2>
-					<div className="cardContainer">
-						<CardPet />
-					</div>
-					<div className="cardContainer">
-						<CardPet />
-					</div>
+					<div className="cardContainer">{/** <CardPet /> */}</div>
+					<div className="cardContainer">{/** <CardPet /> */}</div>
 				</LeftContent>
 
 				<RightContent>
 					<h2>Solicitações</h2>
-					<div className="cardContainer">
-						<CardPet />
-					</div>
-					<div className="cardContainer">
-						<CardPet />
-					</div>
+					<div className="cardContainer">{/** <CardPet /> */}</div>
+					<div className="cardContainer">{/** <CardPet /> */}</div>
 				</RightContent>
 			</Content>
 		</Container>

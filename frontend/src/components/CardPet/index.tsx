@@ -1,39 +1,46 @@
 import React from 'react';
 
 import { Container } from './styles';
+import { Pet } from '../../pages/Dashboard';
 
-const CardPet: React.FC = () => {
+interface Props {
+	pet: Pet;
+	buttonName: string;
+	handleClickButton(): void;
+}
+
+const CardPet: React.FC<Props> = ({ pet, buttonName, handleClickButton }) => {
 	return (
 		<Container>
 			<div className="box-1">
 				<img
 					src="https://www.rbsdirect.com.br/imagesrc/25743537.jpg?w=580"
-					alt="Caramelo"
+					alt={pet.name}
 				/>
 				<div>
-					<h3>Rick</h3>
+					<h3>{pet.name}</h3>
 					<div>
 						<label>Porte: </label>
-						<span>Grande</span>
+						<span>{pet.port}</span>
 					</div>
 					<div>
 						<label>Tipo: </label>
-						<span>Cachorro</span>
+						<span>{pet.type}</span>
 					</div>
 					<div>
 						<label>Sexo: </label>
-						<span>Macho</span>
+						<span>{pet.sex}</span>
 					</div>
 				</div>
 			</div>
 			<label>Descrição</label>
-			<p>
-				Conheça o Rick, um pingo de gente que transmite amor e alegria por onde
-				passa, o que ele não tem de tamanho ele tem de energia, sempre pronto
-				para brincar.
-			</p>
-			<button className="action-button" type="button">
-				Me adote
+			<p>{pet.description}</p>
+			<button
+				className="action-button"
+				type="button"
+				onClick={handleClickButton}
+			>
+				{buttonName}
 			</button>
 		</Container>
 	);

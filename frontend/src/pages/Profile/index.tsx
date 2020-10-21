@@ -83,7 +83,7 @@ const Profile: React.FC = () => {
 				});
 			}
 		},
-		[addToast],
+		[addToast, token],
 	);
 
 	return (

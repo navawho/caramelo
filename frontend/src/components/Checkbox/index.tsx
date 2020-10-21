@@ -3,11 +3,22 @@ import { FiCheck } from 'react-icons/fi';
 
 import { Radio } from './styles';
 
-const Checkbox: React.FC = () => {
+interface Props {
+	handleClick: (newState: string) => void;
+	label: string;
+}
+
+const Checkbox: React.FC<Props> = ({ handleClick, label }) => {
 	const [isChecked, setIsChecked] = useState(false);
 
 	return (
-		<Radio isChecked={isChecked} onClick={() => setIsChecked(!isChecked)}>
+		<Radio
+			isChecked={isChecked}
+			onClick={() => {
+				setIsChecked(!isChecked);
+				handleClick(label);
+			}}
+		>
 			<FiCheck color="#fff" />
 		</Radio>
 	);
