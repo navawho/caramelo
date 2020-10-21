@@ -35,6 +35,8 @@ export interface Pet {
 	available: boolean;
 	sex: string;
 	description: string;
+	imageUrl: string;
+	birthDate: string;
 }
 
 const SignUp: React.FC = () => {
@@ -81,127 +83,131 @@ const SignUp: React.FC = () => {
 	}, [name, port, sex, token, type]);
 
 	return (
-		<OutContainer>
-			<SidebarContainer>
-				<Sidebar />
-			</SidebarContainer>
+		<>
+			<OutContainer>
+				<SidebarContainer>
+					<Sidebar />
+				</SidebarContainer>
 
-			<Container>
-				<Content>
-					<Filters>
-						<Input
-							value={name}
-							type="text"
-							placeholder="Pesquise por nome"
-							icon={FiSearch}
-							onChange={(e) => setName(e.target.value)}
-						/>
-						<Filter>
-							<h4>Porte</h4>
-							<FilterOptions>
-								<Radio
-									isChecked={port === 'Pequeno'}
-									onClick={() => {
-										setPort((oldPort) =>
-											oldPort === 'Pequeno' ? '' : 'Pequeno',
-										);
-									}}
-								>
-									<FiCheck color="#fff" />
-								</Radio>
-								<label>Pequeno</label>
-								<Radio
-									isChecked={port === 'Médio'}
-									onClick={() => {
-										setPort((oldPort) => (oldPort === 'Médio' ? '' : 'Médio'));
-									}}
-								>
-									<FiCheck color="#fff" />
-								</Radio>
-								<label>Médio</label>
-								<Radio
-									isChecked={port === 'Grande'}
-									onClick={() => {
-										setPort((oldPort) =>
-											oldPort === 'Grande' ? '' : 'Grande',
-										);
-									}}
-								>
-									<FiCheck color="#fff" />
-								</Radio>
-								<label>Grande</label>
-							</FilterOptions>
-						</Filter>
-						<Filter>
-							<h4>Tipo</h4>
-							<FilterOptions>
-								<Radio
-									isChecked={type === 'Cachorro'}
-									onClick={() => {
-										setType((oldType) =>
-											oldType === 'Cachorro' ? '' : 'Cachorro',
-										);
-									}}
-								>
-									<FiCheck color="#fff" />
-								</Radio>
-								<label>Cachorro</label>
-								<Radio
-									isChecked={type === 'Gato'}
-									onClick={() => {
-										setType((oldType) => (oldType === 'Gato' ? '' : 'Gato'));
-									}}
-								>
-									<FiCheck color="#fff" />
-								</Radio>
-								<label>Gato</label>
-							</FilterOptions>
-						</Filter>
-						<Filter>
-							<h4>Sexo</h4>
-							<FilterOptions>
-								<Radio
-									isChecked={sex === 'Macho'}
-									onClick={() => {
-										setSex((oldSex) => (oldSex === 'Macho' ? '' : 'Macho'));
-									}}
-								>
-									<FiCheck color="#fff" />
-								</Radio>
-								<label>Macho</label>
-								<Radio
-									isChecked={sex === 'Fêmea'}
-									onClick={() => {
-										setSex((oldSex) => (oldSex === 'Fêmea' ? '' : 'Fêmea'));
-									}}
-								>
-									<FiCheck color="#fff" />
-								</Radio>
-								<label>Fêmea</label>
-							</FilterOptions>
-						</Filter>
-					</Filters>
-					<Pets>
-						{pets.map((pet) => (
-							<CardPet
-								key={pet.id}
-								buttonName="Me adote!"
-								pet={pet}
-								handleClickButton={() => {
-									api.post(
-										`/solicitations/${pet.id}`,
-										{},
-										{
-											headers: { Authorization: `Bearer ${token}` },
-										},
-									);
-								}}
+				<Container>
+					<Content>
+						<Filters>
+							<Input
+								value={name}
+								type="text"
+								placeholder="Pesquise por nome"
+								icon={FiSearch}
+								onChange={(e) => setName(e.target.value)}
 							/>
-						))}
-					</Pets>
-				</Content>
-			</Container>
-		</OutContainer>
+							<Filter>
+								<h4>Porte</h4>
+								<FilterOptions>
+									<Radio
+										isChecked={port === 'Pequeno'}
+										onClick={() => {
+											setPort((oldPort) =>
+												oldPort === 'Pequeno' ? '' : 'Pequeno',
+											);
+										}}
+									>
+										<FiCheck color="#fff" />
+									</Radio>
+									<label>Pequeno</label>
+									<Radio
+										isChecked={port === 'Médio'}
+										onClick={() => {
+											setPort((oldPort) =>
+												oldPort === 'Médio' ? '' : 'Médio',
+											);
+										}}
+									>
+										<FiCheck color="#fff" />
+									</Radio>
+									<label>Médio</label>
+									<Radio
+										isChecked={port === 'Grande'}
+										onClick={() => {
+											setPort((oldPort) =>
+												oldPort === 'Grande' ? '' : 'Grande',
+											);
+										}}
+									>
+										<FiCheck color="#fff" />
+									</Radio>
+									<label>Grande</label>
+								</FilterOptions>
+							</Filter>
+							<Filter>
+								<h4>Tipo</h4>
+								<FilterOptions>
+									<Radio
+										isChecked={type === 'Cachorro'}
+										onClick={() => {
+											setType((oldType) =>
+												oldType === 'Cachorro' ? '' : 'Cachorro',
+											);
+										}}
+									>
+										<FiCheck color="#fff" />
+									</Radio>
+									<label>Cachorro</label>
+									<Radio
+										isChecked={type === 'Gato'}
+										onClick={() => {
+											setType((oldType) => (oldType === 'Gato' ? '' : 'Gato'));
+										}}
+									>
+										<FiCheck color="#fff" />
+									</Radio>
+									<label>Gato</label>
+								</FilterOptions>
+							</Filter>
+							<Filter>
+								<h4>Sexo</h4>
+								<FilterOptions>
+									<Radio
+										isChecked={sex === 'Macho'}
+										onClick={() => {
+											setSex((oldSex) => (oldSex === 'Macho' ? '' : 'Macho'));
+										}}
+									>
+										<FiCheck color="#fff" />
+									</Radio>
+									<label>Macho</label>
+									<Radio
+										isChecked={sex === 'Fêmea'}
+										onClick={() => {
+											setSex((oldSex) => (oldSex === 'Fêmea' ? '' : 'Fêmea'));
+										}}
+									>
+										<FiCheck color="#fff" />
+									</Radio>
+									<label>Fêmea</label>
+								</FilterOptions>
+							</Filter>
+						</Filters>
+						<Pets>
+							{pets.map((pet) => (
+								<CardPet
+									key={pet.id}
+									buttonName="Me adote!"
+									pet={pet}
+									handleClickButton={() => {
+										api.post(
+											`/solicitations/${pet.id}`,
+											{},
+											{
+												headers: { Authorization: `Bearer ${token}` },
+											},
+										);
+									}}
+								/>
+							))}
+						</Pets>
+					</Content>
+				</Container>
+			</OutContainer>
+		</>
 	);
 };
 
