@@ -120,6 +120,6 @@ public class SolicitationService implements ISolicitationService {
             throw new BusinessRuleException("Permissões insuficientes.");
         }
 
-        return solicitationRepository.findSolicitationByPet(pet.get());
+        return solicitationRepository.findSolicitationByPetAndAcceptedIsNull(pet.get());
     }
 }

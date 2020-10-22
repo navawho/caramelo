@@ -12,6 +12,6 @@ public interface SolicitationRepository extends JpaRepository<Solicitation, Long
     @Query("select s from Solicitation s join Pet p on p.id=s.pet.id where s.user.id=?1 or p.user.id=?1")
     List<Solicitation> findSolicitations(Long userId);
 
-    List<Solicitation> findSolicitationByPet(Pet pet);
+    List<Solicitation> findSolicitationByPetAndAcceptedIsNull(Pet pet);
 
 }
