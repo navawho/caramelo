@@ -94,7 +94,7 @@ public class SolicitationService implements ISolicitationService {
             throw new BusinessRuleException("Usuário com esse token não existe.");
         }
 
-        return solicitationRepository.findSolicitations(userId);
+        return solicitationRepository.findSolicitationsByUserId(userId);
     }
 
     @Override
