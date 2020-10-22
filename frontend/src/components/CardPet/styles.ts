@@ -15,6 +15,12 @@ export const Container = styled.div`
 	}
 
 	.box-1 {
+		p {
+			margin-bottom: 12px;
+		}
+	}
+
+	.box-2 {
 		display: flex;
 		align-items: center;
 		margin-bottom: 12px;
