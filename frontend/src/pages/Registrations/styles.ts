@@ -14,6 +14,7 @@ export const Content = styled.div`
 	align-items: flex-start;
 	margin-left: 230px;
 	margin-top: 24px;
+	min-width: 310px;
 
 	> button {
 		margin-top: 24px;

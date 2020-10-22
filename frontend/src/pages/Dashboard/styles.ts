@@ -5,7 +5,7 @@ export const SidebarContainer = styled.div``;
 
 export const OutContainer = styled.div`
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-start;
 `;
 
 export const Container = styled.div`
@@ -17,6 +17,7 @@ export const Content = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin-left: 36px;
 	margin-top: 24px;
 `;
 
@@ -49,7 +50,7 @@ export const FilterOptions = styled.div`
 
 export const Pets = styled.div`
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	flex-wrap: wrap;
 	margin-top: 36px;
 

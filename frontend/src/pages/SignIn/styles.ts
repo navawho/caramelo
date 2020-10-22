@@ -2,16 +2,15 @@ import styled from 'styled-components';
 import { shade } from 'polished';
 
 export const Container = styled.div`
-	height: 100vh;
-
+	height: 100%;
 	display: flex;
-	align-items: stretch;
+	align-items: center;
 `;
 
 export const Content = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 
 	width: 100%;

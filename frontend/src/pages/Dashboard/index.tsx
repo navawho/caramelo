@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FiSearch, FiCheck } from 'react-icons/fi';
+import { useToast } from '../../hooks/toast';
 
 import Input from '../../components/InputWithoutUnform';
 
@@ -29,6 +30,7 @@ const SignUp: React.FC = () => {
 	const [type, setType] = useState('');
 	const [sex, setSex] = useState('');
 
+	const { addToast } = useToast();
 	const { token } = useAuth();
 
 	useEffect(() => {
@@ -176,13 +178,24 @@ const SignUp: React.FC = () => {
 									buttonName="Me adote!"
 									pet={pet}
 									handleClickButton={() => {
-										api.post(
-											`/solicitations/${pet.id}`,
-											{},
-											{
-												headers: { Authorization: `Bearer ${token}` },
-											},
-										);
+										try{
+											const response = api.post(
+												`/solicitations/${pet.id}`,
+												{},
+												{
+													headers: { Authorization: `Bearer ${token}` },
+												},
+											);
+
+											addToast({ type: 'sucess', title: 'Solicitação de adoção realizada com sucesso!' })
+										} catch (err) {
+											addToast({
+												type: 'error',
+												title: 'Erro na criação',
+												description: 'Ocorreu um erro ao solicitar adoção, tente novamente.'
+											});
+										}
+										
 									}}
 								/>
 							))}
