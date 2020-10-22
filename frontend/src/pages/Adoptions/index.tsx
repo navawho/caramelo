@@ -4,7 +4,7 @@ import CardPet from '../../components/CardPet';
 import Sidebar from '../../components/Sidebar';
 import { useAuth } from '../../hooks/auth';
 import Pet from '../../interfaces/Pet';
-import Adoption from '../../interfaces/Adoption'
+import Adoption from '../../interfaces/Adoption';
 import { useToast } from '../../hooks/toast';
 
 import api from '../../services/api';
@@ -22,11 +22,11 @@ const Adoptions: React.FC = () => {
 	useEffect(() => {
 		api
 			.get('/adoptions', {
-				headers: { Authorization: `Bearer ${token}` }
+				headers: { Authorization: `Bearer ${token}` },
 			})
 			.then(({ data }) => {
-				console.log(data)
-				setAdoptions(data)
+				console.log(data);
+				setAdoptions(data);
 			});
 	}, [token]);
 
@@ -38,38 +38,33 @@ const Adoptions: React.FC = () => {
 					<h2>Adoções</h2>
 					<Pets>
 						{adoptions.map((adoption) => (
-							<CardPet 
+							<CardPet
 								key={adoption.pet.id}
-								buttonName={() => {
-									if(adoption.returned) {
-										return "Retornado";
-									} else {
-										return "Retornar";
-									}
-								}}
+								buttonName={adoption.returned ? 'Retornado' : 'Retornar'}
 								isDisabled={adoption.returned}
 								pet={adoption.pet}
-								handleClickButton={() => {
-										try{
-											const response = api.patch(
-												`/adoptions/${adoption.id}/return`,
-												{},
-												{
-													headers: { Authorization: `Bearer ${token}` },
-												},
-											);
+								handleClickButton={async () => {
+									try {
+										await api.patch(
+											`/adoptions/${adoption.id}/return`,
+											{},
+											{
+												headers: { Authorization: `Bearer ${token}` },
+											},
+										);
 
-											addToast({ type: 'sucess', title: 'Retorno de pet efetuado com sucesso.' })
-										} catch (err) {
-											addToast({
-												type: 'error',
-												title: 'Erro na criação',
-												description: 'Ocorreu um erro ao retornar o Pet'
-											});
-										}
-										
+										addToast({
+											type: 'sucess',
+											title: 'Retorno de pet efetuado com sucesso.',
+										});
+									} catch (err) {
+										addToast({
+											type: 'error',
+											title: 'Erro na criação',
+											description: 'Ocorreu um erro ao retornar o Pet',
+										});
 									}
-								}
+								}}
 							/>
 						))}
 					</Pets>
