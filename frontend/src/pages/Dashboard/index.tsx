@@ -188,6 +188,10 @@ const SignUp: React.FC = () => {
 												},
 											);
 
+											setPets(
+												pets.filter((filteredPet) => filteredPet.id !== pet.id),
+											);
+
 											addToast({
 												type: 'sucess',
 												title: 'Solicitação de adoção realizada com sucesso!',
