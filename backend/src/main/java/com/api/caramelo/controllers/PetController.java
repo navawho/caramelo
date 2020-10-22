@@ -3,7 +3,6 @@ package com.api.caramelo.controllers;
 import com.api.caramelo.controllers.dtos.CreatePetDTO;
 import com.api.caramelo.controllers.dtos.UpdatePetDTO;
 import com.api.caramelo.exceptions.BusinessRuleException;
-import com.api.caramelo.models.Pet;
 import com.api.caramelo.services.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -80,18 +79,32 @@ public class PetController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/adopt")
     public ResponseEntity index(
-            @RequestParam(value = "sex", required = false) String sex,
-            @RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "type", required = false) String type,
-            @RequestParam(value = "port", required = false) String port,
+            @RequestParam(value = "sex", required = false, defaultValue = "") String sex,
+            @RequestParam(value = "name", required = false, defaultValue = "") String name,
+            @RequestParam(value = "type", required = false, defaultValue = "") String type,
+            @RequestParam(value = "port", required = false, defaultValue = "") String port,
             HttpServletRequest request) {
         try {
             Long userId = (Long) request.getAttribute("userId");
-            Pet petFilter = Pet.builder().name(name).sex(sex).type(type).port(port).build();
 
-            return ok(service.search(petFilter, userId));
+            return ok(service.search(userId, name, port, type, sex));
+        } catch (BusinessRuleException e) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("message", e.getMessage());
+
+            return badRequest().body(map);
+        }
+    }
+
+    @GetMapping("/my-pets")
+    public ResponseEntity index(
+            HttpServletRequest request) {
+        try {
+            Long userId = (Long) request.getAttribute("userId");
+
+            return ok(service.searchMyPets(userId));
         } catch (BusinessRuleException e) {
             Map<String, Object> map = new HashMap<>();
             map.put("message", e.getMessage());
