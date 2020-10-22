@@ -180,6 +180,10 @@ const Registration: React.FC = () => {
 				{ headers: { Authorization: `Bearer ${token}` } },
 			);
 
+			api.delete(`/solicitations/${solicitationId}`, {
+				headers: { Authorization: `Bearer ${token}` },
+			});
+
 			const mappedPets = pets.map((pet) => {
 				const solicitationIndex = pet.solicitations.findIndex(
 					(solicitation) => solicitation.id === solicitationId,
