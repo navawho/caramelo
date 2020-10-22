@@ -31,7 +31,10 @@ const Adoptions: React.FC = () => {
 				headers: { Authorization: `Bearer ${token}` },
 			})
 			.then(({ data }) => {
-				setSolicitations(data);
+				const mappedData = data.filter(
+					(item: Solicitation) => item.accepted === false,
+				);
+				setSolicitations(mappedData);
 			});
 	}, [token]);
 
