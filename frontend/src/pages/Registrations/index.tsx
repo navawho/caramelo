@@ -218,11 +218,9 @@ const Registration: React.FC = () => {
 		username: string,
 	): Promise<void> {
 		try {
-			await api.patch(
-				`/solicitations/${solicitationId}/refuse`,
-				{},
-				{ headers: { Authorization: `Bearer ${token}` } },
-			);
+			await api.delete(`/solicitations/${solicitationId}`, {
+				headers: { Authorization: `Bearer ${token}` },
+			});
 
 			const mappedPets = pets.map((pet) => {
 				const solicitationIndex = pet.solicitations.findIndex(
