@@ -101,4 +101,25 @@ public class SolicitationService implements ISolicitationService {
 
         return solicitationRepository.findSolicitations(userId);
     }
+
+    @Override
+    public List<Solicitation> searchPetSolicitations(Long userId, Long petId) {
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isEmpty()) {
+            throw new BusinessRuleException("Usuário com esse token não existe.");
+        }
+
+        Optional<Pet> pet = petRepository.findById(petId);
+
+        if (pet.isEmpty()) {
+            throw new BusinessRuleException("Pet não existe.");
+        }
+
+        if (pet.get().getUser() != user.get()) {
+            throw new BusinessRuleException("Permissões insuficientes.");
+        }
+
+        return solicitationRepository.findSolicitationByPet(pet.get());
+    }
 }
