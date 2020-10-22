@@ -9,7 +9,7 @@ import { useToast } from '../../hooks/toast';
 
 import api from '../../services/api';
 
-import { Container, Content, LeftContent, RightContent, Pets } from './styles';
+import { Container, Content, LeftContent, RightContent } from './styles';
 
 const Adoptions: React.FC = () => {
 	const [adoptions, setAdoptions] = useState<Adoption[]>([]);
@@ -41,7 +41,7 @@ const Adoptions: React.FC = () => {
 			<Content>
 				<LeftContent>
 					<h2>Adoções</h2>
-					<Pets>
+					<div className="cardContainer">
 						{adoptions.map((adoption) => (
 							<CardPet
 								key={adoption.id}
@@ -72,7 +72,7 @@ const Adoptions: React.FC = () => {
 								}}
 							/>
 						))}
-					</Pets>
+					</div>
 				</LeftContent>
 
 				<RightContent>
