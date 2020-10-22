@@ -175,12 +175,11 @@ const SignUp: React.FC = () => {
 							{pets.map((pet) => (
 								<CardPet
 									key={pet.id}
-									buttonName={() => {return "Me adote!"}}
+									isDisabled={false}
+									buttonName="Me adote!"
 									pet={pet}
 									handleClickButton={async () => {
-									isDisabled={false}
-									handleClickButton={() => {
-										try{
+										try {
 											await api.post(
 												`/solicitations/${pet.id}`,
 												{},
@@ -189,15 +188,18 @@ const SignUp: React.FC = () => {
 												},
 											);
 
-											addToast({ type: 'sucess', title: 'Solicitação de adoção realizada com sucesso!' })
+											addToast({
+												type: 'sucess',
+												title: 'Solicitação de adoção realizada com sucesso!',
+											});
 										} catch (err) {
 											addToast({
 												type: 'error',
 												title: 'Erro na solicitação',
-												description: 'Ocorreu um erro ao solicitar adoção, tente novamente.'
+												description:
+													'Ocorreu um erro ao solicitar adoção, tente novamente.',
 											});
 										}
-										
 									}}
 								/>
 							))}

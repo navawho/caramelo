@@ -5,19 +5,21 @@ import { Container } from './styles';
 
 interface Props {
 	pet: Pet;
-	buttonName(): string;
+	buttonName: string;
 	handleClickButton(): void;
-	isDisabled: boolean
+	isDisabled: boolean;
 }
 
-const CardPet: React.FC<Props> = ({ pet, buttonName, handleClickButton, isDisabled }) => {
+const CardPet: React.FC<Props> = ({
+	pet,
+	buttonName,
+	handleClickButton,
+	isDisabled,
+}) => {
 	return (
 		<Container>
 			<div className="box-1">
-				<img
-					src={pet.imageUrl}
-					alt={pet.name}
-				/>
+				<img src={pet.imageUrl} alt={pet.name} />
 				<div>
 					<h3>{pet.name}</h3>
 					<div>
@@ -42,7 +44,7 @@ const CardPet: React.FC<Props> = ({ pet, buttonName, handleClickButton, isDisabl
 				onClick={handleClickButton}
 				disabled={isDisabled}
 			>
-				{buttonName()}
+				{buttonName}
 			</button>
 		</Container>
 	);
