@@ -14,4 +14,6 @@ public interface SolicitationRepository extends JpaRepository<Solicitation, Long
 
     List<Solicitation> findSolicitationByPetAndAcceptedIsNull(Pet pet);
 
+    List<Solicitation> findSolicitationsByUserId(Long userId);
+
 }
