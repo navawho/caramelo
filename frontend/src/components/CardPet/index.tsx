@@ -5,11 +5,12 @@ import { Container } from './styles';
 
 interface Props {
 	pet: Pet;
-	buttonName: string;
+	buttonName(): string;
 	handleClickButton(): void;
+	isDisabled: boolean
 }
 
-const CardPet: React.FC<Props> = ({ pet, buttonName, handleClickButton }) => {
+const CardPet: React.FC<Props> = ({ pet, buttonName, handleClickButton, isDisabled }) => {
 	return (
 		<Container>
 			<div className="box-1">
@@ -39,8 +40,9 @@ const CardPet: React.FC<Props> = ({ pet, buttonName, handleClickButton }) => {
 				className="action-button"
 				type="button"
 				onClick={handleClickButton}
+				disabled={isDisabled}
 			>
-				{buttonName}
+				{buttonName()}
 			</button>
 		</Container>
 	);

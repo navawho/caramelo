@@ -175,8 +175,9 @@ const SignUp: React.FC = () => {
 							{pets.map((pet) => (
 								<CardPet
 									key={pet.id}
-									buttonName="Me adote!"
+									buttonName={() => {return "Me adote!"}}
 									pet={pet}
+									isDisabled={false}
 									handleClickButton={() => {
 										try{
 											const response = api.post(
