@@ -1,5 +1,6 @@
 import React from 'react';
 import Pet from '../../interfaces/Pet';
+import formatDate from '../../utils/formatDate';
 
 import { Container } from './styles';
 
@@ -19,6 +20,12 @@ const CardPet: React.FC<Props> = ({
 	return (
 		<Container>
 			<div className="box-1">
+				<p>
+					Cadastrado <strong>{formatDate(pet.createdAt as string)}</strong> por{' '}
+					<strong>{pet.user.username}</strong>
+				</p>
+			</div>
+			<div className="box-2">
 				<img src={pet.imageUrl} alt={pet.name} />
 				<div>
 					<h3>{pet.name}</h3>

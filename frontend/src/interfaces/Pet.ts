@@ -11,4 +11,5 @@ export default interface Pet {
 	imageUrl: string;
 	description: string;
 	birthDate: string;
+	createdAt?: string;
 }
