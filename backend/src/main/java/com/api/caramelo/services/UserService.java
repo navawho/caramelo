@@ -48,13 +48,13 @@ public class UserService implements IUserService {
 
         User user = optionalUser.get();
 
-        if (!checkpw(userDTO.getOldPassword(), user.getPassword())) {
-            throw new BusinessRuleException("Senha antiga inválida.");
-        }
+        if (nonNull(userDTO.getOldPassword())) {
+            if (!checkpw(userDTO.getOldPassword(), user.getPassword())) {
+                throw new BusinessRuleException("Senha antiga inválida.");
+            }
 
-        String hashedPassword = this.validateAndHashPassword(userDTO.getPassword(), userDTO.getConfirmPassword());
+            String hashedPassword = this.validateAndHashPassword(userDTO.getPassword(), userDTO.getConfirmPassword());
 
-        if (nonNull(userDTO.getPassword())) {
             user.setPassword(hashedPassword);
         }
 

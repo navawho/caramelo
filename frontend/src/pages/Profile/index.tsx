@@ -14,12 +14,12 @@ import Sidebar from '../../components/Sidebar';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 interface UpdateProfileFormData {
-	username?: string,
-	email?: string,
-	phone?: string,
-	oldPassword?: string,
-	password?: string,
-	confirmPassword?: string
+	username?: string;
+	email?: string;
+	phone?: string;
+	oldPassword?: string;
+	password?: string;
+	confirmPassword?: string;
 }
 
 const Profile: React.FC = () => {
@@ -28,9 +28,6 @@ const Profile: React.FC = () => {
 		username: '',
 		email: '',
 		phone: '',
-		oldPassword: '',
-		password: '',
-		confirmPassword: '',
 	});
 	const { token } = useAuth();
 
@@ -38,23 +35,12 @@ const Profile: React.FC = () => {
 		api
 			.get('/users', { headers: { Authorization: `Bearer ${token}` } })
 			.then(({ data }) => {
-				console.log(data)
-				const {
-					username,
-					email,
-					phone,
-					oldPassword,
-					password,
-					confirmPassword,
-				} = data;
+				const { username, email, phone } = data;
 
 				setProfile({
 					username,
 					email,
 					phone,
-					oldPassword,
-					password,
-					confirmPassword,
 				});
 			});
 	}, [token]);
@@ -76,14 +62,38 @@ const Profile: React.FC = () => {
 					phone: Yup.string(),
 					oldPassword: Yup.string(),
 					password: Yup.string(),
-					confirmPassword: Yup.string()
+					confirmPassword: Yup.string(),
 				});
 
 				await schema.validate(data, { abortEarly: false });
 
-				await api.patch('/users', data, {
-					headers: { Authorization: `Bearer ${token}` },
-				});
+				const updateData: UpdateProfileFormData = {};
+
+				if (profile.username !== data.username) {
+					updateData.username = data.username;
+				}
+
+				if (profile.email !== data.email) {
+					updateData.email = profile.email;
+				}
+
+				if (profile.phone !== data.phone) {
+					updateData.phone = profile.phone;
+				}
+
+				if (data.oldPassword) {
+					updateData.oldPassword = data.oldPassword;
+					updateData.password = data.password;
+					updateData.confirmPassword = data.confirmPassword;
+				}
+
+				await api.patch(
+					'/users',
+					{ ...updateData },
+					{
+						headers: { Authorization: `Bearer ${token}` },
+					},
+				);
 
 				addToast({
 					type: 'sucess',
@@ -107,7 +117,7 @@ const Profile: React.FC = () => {
 				});
 			}
 		},
-		[addToast, token],
+		[addToast, profile, token],
 	);
 
 	return (
@@ -147,22 +157,22 @@ const Profile: React.FC = () => {
 					</div>
 					<Input
 						type="password"
-						id="password"
-						name="password"
+						id="oldPassword"
+						name="oldPassword"
 						placeholder="Senha atual"
 						icon={FiLock}
 					/>
 					<Input
 						type="password"
-						id="new-password"
-						name="new-password"
+						id="password"
+						name="password"
 						placeholder="Nova senha"
 						icon={FiLock}
 					/>
 					<Input
 						type="password"
-						id="confirm-new-password"
-						name="confirm-new-password"
+						id="confirmPassword"
+						name="confirmPassword"
 						placeholder="Confirme a nova senha"
 						icon={FiLock}
 					/>
