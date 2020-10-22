@@ -14,4 +14,6 @@ public interface ISolicitationService {
     Solicitation update(Long solicitationId, Boolean accepted);
 
     List<Solicitation> search(Long userId);
+
+    List<Solicitation> searchPetSolicitations(Long userId, Long petId);
 }

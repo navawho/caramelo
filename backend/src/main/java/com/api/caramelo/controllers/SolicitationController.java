@@ -78,4 +78,18 @@ public class SolicitationController {
             return badRequest().body(map);
         }
     }
+
+    @GetMapping("{petId}")
+    public ResponseEntity getPetSolicitations(HttpServletRequest request, @PathVariable Long petId) {
+        try {
+            Long userId = (Long) request.getAttribute("userId");
+
+            return ok(service.searchPetSolicitations(userId, petId));
+        } catch (BusinessRuleException e) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("message", e.getMessage());
+
+            return badRequest().body(map);
+        }
+    }
 }
