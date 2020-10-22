@@ -58,7 +58,7 @@ const SignUp: React.FC = () => {
 		}
 
 		api
-			.get('/pets', {
+			.get('/pets/adopt', {
 				headers: { Authorization: `Bearer ${token}` },
 				params,
 			})
@@ -177,10 +177,11 @@ const SignUp: React.FC = () => {
 									key={pet.id}
 									buttonName={() => {return "Me adote!"}}
 									pet={pet}
+									handleClickButton={async () => {
 									isDisabled={false}
 									handleClickButton={() => {
 										try{
-											const response = api.post(
+											await api.post(
 												`/solicitations/${pet.id}`,
 												{},
 												{
@@ -192,7 +193,7 @@ const SignUp: React.FC = () => {
 										} catch (err) {
 											addToast({
 												type: 'error',
-												title: 'Erro na criação',
+												title: 'Erro na solicitação',
 												description: 'Ocorreu um erro ao solicitar adoção, tente novamente.'
 											});
 										}

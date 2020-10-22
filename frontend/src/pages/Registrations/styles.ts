@@ -63,6 +63,9 @@ export const Solicitation = styled.div`
 	p {
 		font-size: 18px;
 	}
+	span {
+		display: flex;
+	}
 	margin-bottom: 12px;
 	margin-right: 12px;
 	:last-child {
