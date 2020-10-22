@@ -75,14 +75,8 @@ const Profile: React.FC = () => {
 					email: Yup.string().email('E-mail inválido'),
 					phone: Yup.string(),
 					oldPassword: Yup.string(),
-					password: Yup.string().min(
-						6,
-						'Senha deve ter no mínimo 6 caracteres',
-					),
-					confirmPassword: Yup.string().min(
-						6,
-						'Senha deve ter no mínimo 6 caracteres',
-					),
+					password: Yup.string(),
+					confirmPassword: Yup.string()
 				});
 
 				await schema.validate(data, { abortEarly: false });

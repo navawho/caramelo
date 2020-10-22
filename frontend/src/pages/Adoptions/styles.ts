@@ -17,9 +17,12 @@ export const Content = styled.div`
 	}
 `;
 
+export const Pets = styled.div``;
+
 export const LeftContent = styled.div`
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 `;
 
 export const RightContent = styled.div`
