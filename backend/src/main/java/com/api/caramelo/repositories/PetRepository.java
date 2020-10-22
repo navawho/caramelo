@@ -15,7 +15,7 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
     void deleteById(Long petId);
 
     @Query("select p from Pet p\n" +
-            "where p.user.id<>?1 and p.available=true and p.id not in (select s from Solicitation s where s.user.id=?1 and s.accepted is null) \n" +
+            "where p.user.id<>?1 and p.available=true and p.id not in (select s.pet.id from Solicitation s where s.user.id=?1 and s.accepted is null) \n" +
             "and lower(p.name) LIKE lower(concat('%', ?2, '%')) and lower(p.port) LIKE lower(concat('%', ?3, '%')) and lower(p.type) LIKE lower(concat('%', ?4, '%')) and lower(p.sex) LIKE lower(concat('%', ?5, '%'))")
     List<Pet> findPetsToRequest(Long userId, String name, String port, String type, String sex);
 
