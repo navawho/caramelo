@@ -61,6 +61,10 @@ const Adoptions: React.FC = () => {
 											},
 										);
 
+										setAdoptions(
+											adoptions.filter((item) => item.id !== adoption.id),
+										);
+
 										addToast({
 											type: 'sucess',
 											title: 'Retorno de pet efetuado com sucesso.',
