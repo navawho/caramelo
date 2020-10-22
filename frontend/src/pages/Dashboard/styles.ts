@@ -1,10 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { shade } from 'polished';
 
 export const SidebarContainer = styled.div``;
 
 export const OutContainer = styled.div`
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-start;
 `;
 
 export const Container = styled.div`
@@ -16,6 +17,7 @@ export const Content = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin-left: 36px;
 	margin-top: 24px;
 `;
 
@@ -48,7 +50,7 @@ export const FilterOptions = styled.div`
 
 export const Pets = styled.div`
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	flex-wrap: wrap;
 	margin-top: 36px;
 
@@ -72,4 +74,42 @@ export const SearchBar = styled.div`
 		background-color: transparent;
 		margin-left: 12px;
 	}
+`;
+
+interface RadioProps {
+	isChecked: boolean;
+}
+
+export const Radio = styled.div<RadioProps>`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	background-color: #c4c4c4;
+	width: 18px;
+	height: 18px;
+	cursor: pointer;
+
+	svg {
+		opacity: 0;
+	}
+
+	transition: background-color 0.3s;
+
+	:hover {
+		background-color: ${shade(0.1, '#c4c4c4')};
+	}
+
+	${({ isChecked }) =>
+		isChecked &&
+		css`
+			background-color: #12d368;
+			:hover {
+				background-color: ${shade(0.1, '#12d368')};
+			}
+
+			svg {
+				opacity: 1;
+			}
+		`}
 `;

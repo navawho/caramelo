@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { shade } from 'polished';
 
 export const Container = styled.div`
-	height: 100vh;
+	height: 100%;
 
 	display: flex;
 	align-items: stretch;
@@ -45,14 +45,9 @@ export const Inputs = styled.div`
 	display: flex;
 	flex-direction: column;
 
-	label:first-of-type {
-		margin-top: 0px;
-	}
-
-	label {
-		font-size: 24px;
-		margin-bottom: 12px;
-		margin-top: 18px;
+	.password-wrapper {
+		margin-top: 20px;
+		margin-bottom: 8px;
 	}
 
 	a {
@@ -64,7 +59,7 @@ export const Inputs = styled.div`
 		align-self: center;
 
 		:hover {
-			color: ${shade(0.2, 'rgba(201, 66, 23, 0.93)')}
+			color: ${shade(0.2, 'rgba(201, 66, 23, 0.93)')};
 		}
 	}
 

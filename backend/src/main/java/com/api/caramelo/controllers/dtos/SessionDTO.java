@@ -3,10 +3,7 @@ package com.api.caramelo.controllers.dtos;
 import lombok.Data;
 
 @Data
-public class UserDTO {
+public class SessionDTO {
     private String username;
     private String password;
-    private String confirmPassword;
-    private String email;
-    private String phone;
 }

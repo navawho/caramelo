@@ -9,6 +9,10 @@ interface ContainerProps {
 	isErrored: boolean;
 }
 
+interface ErrorProps {
+	isErrored: boolean;
+}
+
 export const Container = styled.div<ContainerProps>`
 	background: #fff;
 	border-radius: 32px;
@@ -19,9 +23,13 @@ export const Container = styled.div<ContainerProps>`
 	border: 1px solid ${lighten(0.3, '#333333')};
 	color: ${lighten(0.3, '#333333')};
 
-  transition: 0.3s;
+	transition: 0.3s;
 
-  svg {
+	& + div {
+		margin-top: 8px;
+	}
+
+	svg {
 		margin-right: 16px;
 	}
 
@@ -55,9 +63,16 @@ export const Container = styled.div<ContainerProps>`
 	}
 `;
 
-export const Error = styled(Tooltip)`
+export const Error = styled(Tooltip)<ErrorProps>`
 	height: 20px;
 	margin-left: 16px;
+	visibility: hidden;
+
+	${(props) =>
+		props.isErrored &&
+		css`
+			visibility: visible;
+		`}
 
 	svg {
 		margin: 0;

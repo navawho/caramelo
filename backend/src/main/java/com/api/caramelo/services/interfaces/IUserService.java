@@ -1,12 +1,16 @@
 package com.api.caramelo.services.interfaces;
 
+import com.api.caramelo.controllers.dtos.CreateUserDTO;
+import com.api.caramelo.controllers.dtos.UpdateUserDTO;
 import com.api.caramelo.models.User;
-
-import java.util.List;
 
 public interface IUserService {
 
-    List<User> search();
+    User search(Long userId);
 
-    User create(User user);
+    User create(CreateUserDTO userDTO);
+
+    User update(UpdateUserDTO userDTO, Long userId);
+
+    void delete(Long userId);
 }

@@ -19,6 +19,11 @@ export const Container = styled.div`
 		align-items: center;
 		margin-bottom: 12px;
 
+		div {
+			max-width: 120px;
+			word-wrap: break-word;
+		}
+
 		img {
 			border-radius: 12px;
 			width: 180px;

@@ -15,14 +15,20 @@ export const Content = styled.div`
 	.cardContainer {
 		margin: 20px 0;
 	}
+
+	.cardContainer > div {
+		margin-bottom: 30px;
+	}
 `;
 
 export const LeftContent = styled.div`
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 `;
 
 export const RightContent = styled.div`
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 `;

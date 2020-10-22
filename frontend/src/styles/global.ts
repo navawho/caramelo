@@ -26,6 +26,19 @@ export default createGlobalStyle`
 
 	button {
 		cursor: pointer;
+	}
+
+	input[type='number'] {
+    -moz-appearance:textfield;
+	}
+
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+	}
+
+	.action-button {
+		cursor: pointer;
 		border: 0;
 		background-color: #c94217;
 		font-weight: 700;

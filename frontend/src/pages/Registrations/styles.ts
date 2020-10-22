@@ -14,6 +14,7 @@ export const Content = styled.div`
 	align-items: flex-start;
 	margin-left: 230px;
 	margin-top: 24px;
+	min-width: 310px;
 
 	> button {
 		margin-top: 24px;
@@ -61,6 +62,9 @@ export const Solicitation = styled.div`
 	padding: 12px;
 	p {
 		font-size: 18px;
+	}
+	span {
+		display: flex;
 	}
 	margin-bottom: 12px;
 	margin-right: 12px;
