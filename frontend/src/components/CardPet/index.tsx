@@ -7,14 +7,14 @@ interface Props {
 	pet: Pet;
 	buttonName: string;
 	handleClickButton(): void;
-	isDisabled: boolean;
+	isDisabled?: boolean;
 }
 
 const CardPet: React.FC<Props> = ({
 	pet,
 	buttonName,
 	handleClickButton,
-	isDisabled,
+	isDisabled = false,
 }) => {
 	return (
 		<Container>

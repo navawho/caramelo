@@ -49,6 +49,6 @@ public class AdoptionService implements IAdoptionService {
             throw new BusinessRuleException("Usuário com esse token não existe.");
         }
 
-        return adoptionRepository.findByUser(user.get());
+        return adoptionRepository.findByUserAndReturnedIsFalse(user.get());
     }
 }

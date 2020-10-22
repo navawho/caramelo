@@ -1,7 +1,6 @@
 package com.api.caramelo.repositories;
 
 import com.api.caramelo.models.Pet;
-import com.api.caramelo.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import CardPet from '../../components/CardPet';
 import Sidebar from '../../components/Sidebar';
 import { useAuth } from '../../hooks/auth';
-import Pet from '../../interfaces/Pet';
 import Adoption from '../../interfaces/Adoption';
+import Solicitation from '../../interfaces/Solicitation';
 import { useToast } from '../../hooks/toast';
 
 import api from '../../services/api';
@@ -13,11 +13,10 @@ import { Container, Content, LeftContent, RightContent, Pets } from './styles';
 
 const Adoptions: React.FC = () => {
 	const [adoptions, setAdoptions] = useState<Adoption[]>([]);
+	const [solicitations, setSolicitations] = useState<Solicitation[]>([]);
 
 	const { addToast } = useToast();
 	const { token } = useAuth();
-
-	let buttonNameStr;
 
 	useEffect(() => {
 		api
@@ -25,8 +24,14 @@ const Adoptions: React.FC = () => {
 				headers: { Authorization: `Bearer ${token}` },
 			})
 			.then(({ data }) => {
-				console.log(data);
 				setAdoptions(data);
+			});
+		api
+			.get('/solicitations', {
+				headers: { Authorization: `Bearer ${token}` },
+			})
+			.then(({ data }) => {
+				setSolicitations(data);
 			});
 	}, [token]);
 
@@ -39,7 +44,7 @@ const Adoptions: React.FC = () => {
 					<Pets>
 						{adoptions.map((adoption) => (
 							<CardPet
-								key={adoption.pet.id}
+								key={adoption.id}
 								buttonName={adoption.returned ? 'Retornado' : 'Retornar'}
 								isDisabled={adoption.returned}
 								pet={adoption.pet}
@@ -60,7 +65,7 @@ const Adoptions: React.FC = () => {
 									} catch (err) {
 										addToast({
 											type: 'error',
-											title: 'Erro na criação',
+											title: 'Erro no retorno',
 											description: 'Ocorreu um erro ao retornar o Pet',
 										});
 									}
@@ -72,8 +77,40 @@ const Adoptions: React.FC = () => {
 
 				<RightContent>
 					<h2>Solicitações</h2>
-					<div className="cardContainer">{/** <CardPet /> */}</div>
-					<div className="cardContainer">{/** <CardPet /> */}</div>
+					<div className="cardContainer">
+						{solicitations.map((solicitation) => (
+							<CardPet
+								key={solicitation.id}
+								buttonName="Cancelar solicitação"
+								pet={solicitation.pet}
+								handleClickButton={async () => {
+									try {
+										await api.delete(`/solicitations/${solicitation.id}`, {
+											headers: { Authorization: `Bearer ${token}` },
+										});
+
+										setSolicitations(
+											solicitations.filter(
+												(item) => item.id !== solicitation.id,
+											),
+										);
+
+										addToast({
+											type: 'sucess',
+											title: 'Solicitação cancelada com sucesso',
+										});
+									} catch (err) {
+										addToast({
+											type: 'error',
+											title: 'Erro na solicitação',
+											description:
+												'Ocorreu um erro ao cancelar solicitação, por favor tente novamente',
+										});
+									}
+								}}
+							/>
+						))}
+					</div>
 				</RightContent>
 			</Content>
 		</Container>

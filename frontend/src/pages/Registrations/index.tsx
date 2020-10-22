@@ -25,6 +25,15 @@ interface PetWithSolicitations extends Pet {
 	solicitations: SolicitationInterface[];
 }
 
+interface UpdateFormData {
+	name?: string;
+	imageUrl?: string;
+	description?: string;
+	port?: string;
+	sex?: string;
+	type?: string;
+}
+
 const Registration: React.FC = () => {
 	const [modalOpen, setModalOpen] = useState(false);
 	const [updateModalOpen, setUpdateModalOpen] = useState(false);
@@ -110,7 +119,7 @@ const Registration: React.FC = () => {
 
 	async function handleUpdatePet(pet: Pet): Promise<void> {
 		try {
-			const updateData: any = {};
+			const updateData: UpdateFormData = {};
 
 			if (pet.name !== editingPet.name) {
 				updateData.name = pet.name;
@@ -164,7 +173,6 @@ const Registration: React.FC = () => {
 		petName: string,
 		username: string,
 	): Promise<void> {
-		console.log(token);
 		try {
 			await api.patch(
 				`/solicitations/${solicitationId}/accept`,
