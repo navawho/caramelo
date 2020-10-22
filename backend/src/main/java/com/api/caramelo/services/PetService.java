@@ -122,7 +122,7 @@ public class PetService implements IPetService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Pet> search(Pet petFilter, Long userId) {
+    public List<Pet> search(Long userId, String name, String port, String type, String sex) {
 
         Optional<User> user = userRepository.findById(userId);
 
@@ -130,18 +130,20 @@ public class PetService implements IPetService {
             throw new BusinessRuleException("Usuário com esse token não existe.");
         }
 
-        petFilter.setAvailable(true);
+        return petRepository.findPetsToRequest(userId, name, port, type, sex);
+    }
 
-        ExampleMatcher matcher = ExampleMatcher.matchingAll().withIgnoreCase()
-                .withMatcher("name", contains())
-                .withMatcher("port", exact())
-                .withMatcher("type", exact())
-                .withMatcher("sex", exact())
-                .withMatcher("available", exact());
+    @Override
+    @Transactional(readOnly = true)
+    public List<Pet> searchMyPets(Long userId) {
 
-        Example example = Example.of(petFilter, matcher);
+        Optional<User> user = userRepository.findById(userId);
 
-        return petRepository.findAll(example);
+        if(user.isEmpty()) {
+            throw new BusinessRuleException("Usuário com esse token não existe.");
+        }
+
+        return petRepository.findMyPets(userId);
     }
 
     private void checkIfAlreadyExists(String name) {

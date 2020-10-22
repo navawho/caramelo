@@ -8,7 +8,9 @@ import java.util.List;
 
 public interface IPetService {
 
-    List<Pet> search(Pet pet, Long userId);
+    List<Pet> search(Long userId, String name, String port, String type, String sex);
+
+    List<Pet> searchMyPets(Long userId);
 
     Pet create(CreatePetDTO petDTO, Long userId);
 
