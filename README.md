@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="Caramelo" title="Caramelo" src="https://i.ibb.co/THhrSw3/Caramelo-arg-01.png" width="310px" />
+  <img alt="Caramelo" title="Caramelo" src="https://i.ibb.co/THhrSw3/Caramelo-arg-01.png" width="315px" />
 </h1>
 
 <p align = "center">
