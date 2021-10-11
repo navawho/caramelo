@@ -33,9 +33,9 @@
   > ``cd frontend``
   
 2. Instale as dependências:
-  > ``yarn`` ou ``npm install``
+  > `yarn`
 
 3. Crie seu .env com a variável ambiente informando a url da api
   
 4. Inicie a aplicação web:
-  > ``yarn start`
+  > `yarn start`
